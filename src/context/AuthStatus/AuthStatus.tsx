@@ -1,26 +1,34 @@
-import { useAuth } from '../AuthProvider/AuthProvider'
-import { useNavigate } from 'react-router-dom'
-import styles from './index.module.css'
+// import { useAuth } from '../AuthProvider/AuthProvider'
+// import { useNavigate } from 'react-router-dom'
+import styles from './status.module.scss'
+import { MdLogout } from 'react-icons/md'
+import { FaUserAlt } from 'react-icons/fa'
 
 export function AuthStatus() {
-	const auth = useAuth()
-	const navigate = useNavigate()
+	// const auth = useAuth()
+	// const navigate = useNavigate()
 
-	const handleSignOut = () => {
-		auth.signOut(() => {
-			navigate('/')
-		})
-	}
+	// const handleSignOut = () => {
+	// 	auth.signOut(() => {
+	// 		navigate('/')
+	// 	})
+	// }
 
-	if (auth.user === null || auth.user === undefined) {
-		return <div className={styles.noLogged}>You are not logged in</div>
-	}
+	// if (auth.user === null || auth.user === undefined) {
+	// 	return <div className={styles.noLogged}>You are not logged in</div>
+	// }
 
 	return (
 		<>
 			<div className={styles.message}>
-				Welcome <span className={styles.username}>{auth.user}</span>
-				<button onClick={handleSignOut}>Sign out</button>
+				<span className={styles.logoutButton}>
+					<FaUserAlt />
+				</span>
+
+				<p className={styles.username}>Ssdsf</p>
+				<button className={styles.logoutButton}>
+					<MdLogout />
+				</button>
 			</div>
 		</>
 	)
