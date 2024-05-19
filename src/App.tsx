@@ -1,9 +1,10 @@
-import './App.css'
+import './App.scss'
+import { Router } from './router/Router'
 
 export const App = () => {
 	return (
 		<>
-			<div>app</div>
+			<Router />
 		</>
 	)
 }
