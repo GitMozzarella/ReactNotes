@@ -1,3 +1,5 @@
+import { Workspace } from '../../components/Workspace'
+
 export const Content = () => {
-	return <div></div>
+	return <Workspace />
 }
