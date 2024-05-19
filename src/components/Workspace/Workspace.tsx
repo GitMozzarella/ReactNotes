@@ -1,3 +1,5 @@
+import styles from './workspace.module.scss'
+
 export const Workspace = () => {
-	return <div></div>
+	return <div className={styles.workspace}>workspace</div>
 }
