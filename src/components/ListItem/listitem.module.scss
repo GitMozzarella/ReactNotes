@@ -1,0 +1,65 @@
+.list {
+	display: flex;
+	flex-direction: column;
+	height: 80vh;
+
+	.note {
+		display: flex;
+		flex-direction: column;
+		height: 13vh;
+		padding: 10px;
+		position: relative;
+		border-bottom: 1px solid gray;
+		transition: all 0.25s ease-in-out;
+
+		.buttons {
+			display: flex;
+			justify-content: center;
+			gap: 45px;
+		}
+		.deleteButton,
+		.editButton {
+			font-size: 20px;
+			margin-top: 8px;
+			transition: color 0.25 ease-in-out;
+		}
+
+		.deleteButton:hover,
+		.editButton:hover {
+			color: rgb(187, 187, 187);
+		}
+
+		.deleteButton:active,
+		.editButton:active {
+			color: rgb(255, 254, 254);
+		}
+	}
+
+	.note:hover {
+		background-color: #696969;
+	}
+
+	.headerNote {
+		font-size: 24px;
+		font-weight: 1000;
+	}
+
+	.noteInfo {
+		display: flex;
+		justify-content: flex-start;
+		gap: 50px;
+		padding-top: 15px;
+
+		.timeNote {
+			font-weight: 700;
+		}
+
+		.textNote {
+			color: rgb(53, 53, 53);
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+			max-width: 100%;
+		}
+	}
+}
