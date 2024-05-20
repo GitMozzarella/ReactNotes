@@ -1,34 +1,39 @@
 import React from 'react'
+import styles from './home.module.scss'
 
 export const Home: React.FC = () => {
+	const isDarkTheme = false
+
 	return (
-		<div>
-			<h1>Добро пожаловать в приложение ReactNotes!</h1>
-			<p>
-				Это приложение для создания и управления вашими заметками. Оно
-				разработано с использованием современных веб-технологий, таких как:
+		<div
+			className={`${styles.container} ${isDarkTheme ? styles.darkTheme : ''}`}
+		>
+			<h1 className={styles.title}>Добро пожаловать в React-Notes!</h1>
+			<p className={styles.text}>
+				Это приложение предназначено для управления вашими заметками. Мы
+				использовали самые современные технологии, включая:
 			</p>
-			<ul>
-				<li>
-					<strong>React</strong> - библиотека для создания пользовательских
-					интерфейсов
+			<ul className={styles.list}>
+				<li className={styles.listItem}>
+					<strong className={styles.highlight}>React</strong> - библиотека для
+					создания динамических пользовательских интерфейсов
 				</li>
-				<li>
-					<strong>TypeScript</strong> - язык программирования, расширяющий
-					возможности JavaScript
+				<li className={styles.listItem}>
+					<strong className={styles.highlight}>TypeScript</strong> - надстройка
+					над JavaScript, обеспечивающая статическую типизацию
 				</li>
-				<li>
-					<strong>Context API</strong> - встроенная система управления
-					состоянием в React
+				<li className={styles.listItem}>
+					<strong className={styles.highlight}>Context API</strong> - система
+					управления состоянием, встроенная в React
 				</li>
-				<li>
-					<strong>React Router DOM</strong> - библиотека для маршрутизации в
-					приложениях React
+				<li className={styles.listItem}>
+					<strong className={styles.highlight}>React Router DOM</strong> -
+					библиотека для маршрутизации в React-приложениях
 				</li>
 			</ul>
-			<p>
-				Наслаждайтесь удобством и функциональностью нашего приложения. Начните
-				создавать свои заметки прямо сейчас!
+			<p className={styles.text}>
+				Оцените удобство и функциональность нашего приложения. Начните управлять
+				своими заметками уже сегодня!
 			</p>
 		</div>
 	)
