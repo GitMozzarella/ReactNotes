@@ -1,0 +1,58 @@
+/* home.module.scss */
+.container {
+	padding: 20px;
+	border-radius: 8px;
+	margin: 100px 300px;
+}
+
+.title {
+	font-size: 48px;
+	color: #333;
+	margin-bottom: 10px;
+	text-align: center;
+	text-wrap: nowrap;
+	cursor: default;
+}
+
+.text {
+	font-size: 28px;
+	line-height: 1.6;
+	color: #2e2e2e;
+	text-align: left;
+	cursor: default;
+	margin: 50px 0;
+}
+
+.list {
+	margin-top: 20px;
+	padding-left: 20px;
+	list-style-type: disc;
+	text-align: left;
+	cursor: default;
+	font-size: 20px;
+}
+
+.listItem {
+	margin-bottom: 10px;
+	font-size: 1.1em;
+}
+
+.highlight {
+	color: #007bff;
+	cursor: pointer;
+}
+
+/* Темная тема */
+.darkTheme {
+	.title {
+		color: #ddd;
+	}
+
+	.text {
+		color: #aaa;
+	}
+
+	.highlight {
+		color: #80bdff;
+	}
+}
