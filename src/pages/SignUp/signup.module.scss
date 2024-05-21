@@ -1,0 +1,44 @@
+.cover {
+	background-image: url('../../assets/images/water.jpg');
+	background-size: cover;
+	width: 100vw;
+	height: 100vh;
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+.signin {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	width: 600px;
+	min-height: 600px;
+	background: linear-gradient(to bottom, #98d6fa, #baf6ff);
+
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+
+	border-radius: 2%;
+}
+
+form {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	max-width: 400px;
+	gap: 1rem;
+}
+
+input {
+	width: 100%;
+	padding: 0.5rem;
+	border-radius: 5px;
+	border: 1px solid #ccc;
+}
+
+.labelMargin {
+	margin-bottom: 0px;
+}
