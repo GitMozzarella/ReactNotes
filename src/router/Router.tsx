@@ -3,7 +3,6 @@ import { Home } from '../pages/Home'
 import { NotFound } from '../pages/NotFound'
 import { Content } from '../pages/Content'
 import { SignIn } from '../pages/SignIn'
-import { SignUp } from '../pages/SignUp'
 import { MainLayout } from '../components/MainLayout'
 
 export const Router = () => {
@@ -15,7 +14,6 @@ export const Router = () => {
 			</Route>
 			<Route path='*' element={<NotFound />} />
 			<Route path='/auth' element={<SignIn />} />
-			<Route path='/registration' element={<SignUp />} />
 		</Routes>
 	)
 }
