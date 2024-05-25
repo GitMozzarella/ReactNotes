@@ -3,4 +3,40 @@
 	width: 100vw;
 	height: 6vh;
 	border-bottom: 2px solid rgb(196, 196, 196);
+
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+
+	.toggle {
+		font-size: 36px;
+		color: black;
+		margin-right: 100px;
+	}
+
+	.toggle:hover {
+		color: rgb(192, 192, 192);
+	}
+
+	.toggle:active {
+		color: #fff;
+	}
+}
+
+.darkMode {
+	background-color: rgb(0, 0, 0);
+	color: #fff;
+	border-color: #484848;
+
+	.toggle {
+		color: #fff;
+	}
+
+	.toggle:hover {
+		color: #b0b0b0;
+	}
+
+	.toggle:active {
+		color: #fff;
+	}
 }
