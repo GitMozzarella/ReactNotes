@@ -6,7 +6,7 @@
 	.note {
 		display: flex;
 		flex-direction: column;
-		height: 13vh;
+		height: 130px;
 		padding: 10px;
 		position: relative;
 		border-bottom: 1px solid gray;
@@ -42,6 +42,7 @@
 	.headerNote {
 		font-size: 24px;
 		font-weight: 1000;
+		cursor: default;
 	}
 
 	.noteInfo {
@@ -49,6 +50,7 @@
 		justify-content: flex-start;
 		gap: 50px;
 		padding-top: 15px;
+		cursor: default;
 
 		.timeNote {
 			font-weight: 700;
