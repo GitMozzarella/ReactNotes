@@ -1,4 +1,19 @@
 .workspace {
 	background-color: rgb(167, 167, 167);
 	width: 85vw;
+	height: 100%;
+	text-align: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.darkMode {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #242424;
+	color: #b6b6b6;
+	width: 85vw;
+	height: 100%;
 }

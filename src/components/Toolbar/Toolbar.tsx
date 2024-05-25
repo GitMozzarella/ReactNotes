@@ -8,7 +8,11 @@ export const Toolbar = () => {
 	const { darkMode, toggleDarkMode } = useContext(NotesContext)
 
 	return (
-		<div className={`${styles.toolbar} ${darkMode ? styles.darkMode : ''}`}>
+		<div
+			className={`${styles.toolbar} ${
+				darkMode ? styles.darkMode : styles.toolbar
+			}`}
+		>
 			<AuthStatus />
 			<div className={styles.toggle} onClick={toggleDarkMode}>
 				{darkMode ? <IoIosSunny /> : <IoMdMoon />}
