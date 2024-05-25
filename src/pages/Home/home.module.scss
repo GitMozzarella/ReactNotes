@@ -1,4 +1,3 @@
-/* home.module.scss */
 .container {
 	padding: 20px;
 	border-radius: 8px;
@@ -42,7 +41,6 @@
 	cursor: pointer;
 }
 
-/* Темная тема */
 .darkTheme {
 	.title {
 		color: #ddd;
@@ -53,6 +51,6 @@
 	}
 
 	.highlight {
-		color: #80bdff;
+		color: #007bff;
 	}
 }

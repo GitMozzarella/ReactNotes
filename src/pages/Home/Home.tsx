@@ -1,13 +1,12 @@
-import React from 'react'
+import { useContext } from 'react'
 import styles from './home.module.scss'
+import { NotesContext } from '../../context/NotesProvider/NotesProvider'
 
 export const Home: React.FC = () => {
-	const isDarkTheme = false
+	const { darkMode } = useContext(NotesContext)
 
 	return (
-		<div
-			className={`${styles.container} ${isDarkTheme ? styles.darkTheme : ''}`}
-		>
+		<div className={`${styles.container} ${darkMode ? styles.darkTheme : ''}`}>
 			<h1 className={styles.title}>Добро пожаловать в React-Notes!</h1>
 			<p className={styles.text}>
 				Это приложение предназначено для управления вашими заметками. Мы
