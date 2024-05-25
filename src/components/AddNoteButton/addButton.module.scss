@@ -1,0 +1,36 @@
+.addButton {
+	width: 90%;
+	height: 40px;
+	font-size: 16px;
+	font-weight: 800;
+	margin: 5px auto;
+	align-items: center;
+	display: flex;
+	text-align: center;
+	justify-content: center;
+	background-color: rgb(66, 66, 66);
+
+	&:hover {
+		background-color: rgb(99, 99, 99);
+	}
+
+	&:active {
+		background-color: rgb(66, 66, 66);
+	}
+	&.darkMode {
+		background-color: #007bff;
+
+		&:hover {
+			background-color: #006adb;
+		}
+
+		&:active {
+			background-color: #007bff;
+		}
+	}
+
+	.icon {
+		font-size: 24px;
+		margin-left: 15px;
+	}
+}
