@@ -8,11 +8,15 @@ export const AddNoteButton = () => {
 	const { darkMode } = useContext(NotesContext)
 
 	return (
-		<Button
-			className={`${styles.addButton} ${darkMode ? styles.darkMode : ''}`}
-		>
-			Добавить заметку
-			<MdOutlineNoteAdd className={styles.icon} />
-		</Button>
+		<div className={styles.wrapper}>
+			<Button
+				variant='filled'
+				className={`${styles.addButton} ${darkMode ? styles.darkMode : ''}`}
+				style={{ width: '90%', height: '40px' }}
+			>
+				Добавить заметку
+				<MdOutlineNoteAdd className={styles.icon} />
+			</Button>
+		</div>
 	)
 }

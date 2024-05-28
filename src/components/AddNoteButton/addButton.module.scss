@@ -1,22 +1,11 @@
 .addButton {
-	width: 90%;
-	height: 40px;
 	font-size: 16px;
 	font-weight: 800;
-	margin: 5px auto;
-	align-items: center;
+	margin: 10px auto;
 	display: flex;
-	text-align: center;
+	align-items: center;
 	justify-content: center;
-	background-color: rgb(66, 66, 66);
 
-	&:hover {
-		background-color: rgb(99, 99, 99);
-	}
-
-	&:active {
-		background-color: rgb(66, 66, 66);
-	}
 	&.darkMode {
 		background-color: #007bff;
 
@@ -33,4 +22,11 @@
 		font-size: 24px;
 		margin-left: 15px;
 	}
+}
+
+.wrapper {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
 }
