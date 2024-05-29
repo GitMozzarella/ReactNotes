@@ -7,7 +7,9 @@ export const Workspace = () => {
 
 	return (
 		<div className={`${darkMode ? styles.darkMode : styles.workspace}`}>
-			workspace
+			<p className={styles.chooseNote}>
+				Выберите заметку для просмотра и редактирования
+			</p>
 		</div>
 	)
 }

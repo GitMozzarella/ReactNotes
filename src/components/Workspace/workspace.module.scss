@@ -6,6 +6,11 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	.chooseNote {
+		font-size: 36px;
+		color: #6b6b6b;
+		font-weight: 800;
+	}
 }
 
 .darkMode {
@@ -16,4 +21,10 @@
 	color: #b6b6b6;
 	width: 85vw;
 	height: 100%;
+
+	.chooseNote {
+		font-size: 36px;
+		color: #858585;
+		font-weight: 800;
+	}
 }
