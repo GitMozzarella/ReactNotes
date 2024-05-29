@@ -5,7 +5,11 @@ import { NotesContext } from '../../context/NotesProvider/NotesProvider'
 import { MdOutlineNoteAdd } from 'react-icons/md'
 
 export const AddNoteButton = () => {
-	const { darkMode } = useContext(NotesContext)
+	const { addNote, darkMode } = useContext(NotesContext)
+
+	const handleAddNote = () => {
+		addNote()
+	}
 
 	return (
 		<div className={styles.wrapper}>
@@ -13,6 +17,7 @@ export const AddNoteButton = () => {
 				variant='filled'
 				className={`${styles.addButton} ${darkMode ? styles.darkMode : ''}`}
 				style={{ width: '90%', height: '40px' }}
+				onClick={handleAddNote}
 			>
 				Добавить заметку
 				<MdOutlineNoteAdd className={styles.icon} />
