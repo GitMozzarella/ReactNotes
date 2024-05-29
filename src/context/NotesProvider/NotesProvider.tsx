@@ -18,13 +18,15 @@ export interface INotesContext {
 	toggleDarkMode: () => void
 	notes: INote[]
 	addNote: () => void
+	deleteNote: (id: string) => void
 }
 
 export const NotesContext = createContext<INotesContext>({
 	darkMode: false,
 	toggleDarkMode: () => {},
 	notes: [],
-	addNote: () => {}
+	addNote: () => {},
+	deleteNote: () => {}
 })
 
 export const NotesProvider = ({ children }: { children: React.ReactNode }) => {
@@ -43,8 +45,14 @@ export const NotesProvider = ({ children }: { children: React.ReactNode }) => {
 		setNotes([...notes, newNote])
 	}
 
+	const deleteNote = (id: string) => {
+		setNotes(notes.filter(note => note.id !== id))
+	}
+
 	return (
-		<NotesContext.Provider value={{ darkMode, toggleDarkMode, notes, addNote }}>
+		<NotesContext.Provider
+			value={{ darkMode, toggleDarkMode, notes, addNote, deleteNote }}
+		>
 			{children}
 		</NotesContext.Provider>
 	)
