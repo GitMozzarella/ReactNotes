@@ -5,7 +5,7 @@ import { MdDelete, MdModeEdit } from 'react-icons/md'
 import { getDate } from '../../utils/getDate'
 
 export const ListItem = () => {
-	const { notes } = useContext(NotesContext)
+	const { notes, deleteNote } = useContext(NotesContext)
 
 	return (
 		<ul className={styles.list}>
@@ -25,7 +25,10 @@ export const ListItem = () => {
 							<button className={styles.editButton}>
 								<MdModeEdit />
 							</button>
-							<button className={styles.deleteButton}>
+							<button
+								className={styles.deleteButton}
+								onClick={() => deleteNote(note.id)}
+							>
 								<MdDelete />
 							</button>
 						</div>
