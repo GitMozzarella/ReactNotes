@@ -1,4 +1,5 @@
 import { useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
 import styles from './listitem.module.scss'
 import { NotesContext } from '../../context/NotesProvider/NotesProvider'
 import { MdDelete, MdModeEdit } from 'react-icons/md'
@@ -6,6 +7,12 @@ import { getDate } from '../../utils/getDate'
 
 export const ListItem = () => {
 	const { notes, deleteNote } = useContext(NotesContext)
+
+	const navigate = useNavigate()
+
+	const handleEditClick = (id: string) => {
+		navigate(`/notes/${id}`)
+	}
 
 	return (
 		<ul className={styles.list}>
@@ -22,7 +29,10 @@ export const ListItem = () => {
 							<p className={styles.textNote}>{note.textNote}</p>
 						</div>
 						<div className={styles.buttons}>
-							<button className={styles.editButton}>
+							<button
+								className={styles.editButton}
+								onClick={() => handleEditClick(note.id)}
+							>
 								<MdModeEdit />
 							</button>
 							<button
