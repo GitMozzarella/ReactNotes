@@ -40,9 +40,13 @@
 	}
 
 	.headerNote {
-		font-size: 24px;
+		font-size: 20px;
 		font-weight: 1000;
 		cursor: default;
+		width: 260px;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
 	}
 
 	.noteInfo {
