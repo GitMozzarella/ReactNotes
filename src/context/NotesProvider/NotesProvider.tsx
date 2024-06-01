@@ -4,6 +4,8 @@ import { v4 as uuidv4 } from 'uuid'
 import { getCurrentTime } from '../../utils/getCurrentTime'
 import { getCurrentFullDate } from '../../utils/getCurrentFullDate'
 import { getDate } from '../../utils/getDate'
+import { useNavigate } from 'react-router-dom'
+
 export interface INote {
 	id: string
 	headerNote: string
@@ -20,6 +22,10 @@ export interface INotesContext {
 	addNote: () => void
 	deleteNote: (id: string) => void
 	updateNote: (updatedNote: INote) => void
+	setHeaderEdited: (edited: boolean) => void
+	setTextEdited: (edited: boolean) => void
+	headerEdited: boolean
+	textEdited: boolean
 }
 
 export const NotesContext = createContext<INotesContext>({
@@ -28,27 +34,35 @@ export const NotesContext = createContext<INotesContext>({
 	notes: [],
 	addNote: () => {},
 	deleteNote: () => {},
-	updateNote: () => {}
+	updateNote: () => {},
+	setHeaderEdited: () => {},
+	setTextEdited: () => {},
+	headerEdited: false,
+	textEdited: false
 })
 
 export const NotesProvider = ({ children }: { children: React.ReactNode }) => {
 	const [darkMode, toggleDarkMode] = useToggle(false)
 	const [notes, setNotes] = useState<INote[]>([])
+	const [headerEdited, setHeaderEdited] = useState(false)
+	const [textEdited, setTextEdited] = useState(false)
+	const navigate = useNavigate()
 
 	const addNote = () => {
 		const newNote: INote = {
 			id: uuidv4(),
-			headerNote: 'Новая заметка',
+			headerNote: '',
 			time: getCurrentTime(),
 			fullDate: getCurrentFullDate(),
 			date: getDate(),
-			textNote: 'Текст заметки...'
+			textNote: ''
 		}
 		setNotes([...notes, newNote])
 	}
 
 	const deleteNote = (id: string) => {
 		setNotes(notes.filter(note => note.id !== id))
+		navigate('/notes')
 	}
 
 	const updateNote = (updatedNote: INote) => {
@@ -65,7 +79,11 @@ export const NotesProvider = ({ children }: { children: React.ReactNode }) => {
 				notes,
 				addNote,
 				deleteNote,
-				updateNote
+				updateNote,
+				setHeaderEdited,
+				setTextEdited,
+				headerEdited,
+				textEdited
 			}}
 		>
 			{children}
