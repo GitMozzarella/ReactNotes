@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react'
+import { createContext, useState, useEffect } from 'react'
 import { useToggle } from '../../hooks/useToggle'
 import { v4 as uuidv4 } from 'uuid'
 import { getCurrentTime } from '../../utils/getCurrentTime'
@@ -48,6 +48,13 @@ export const NotesProvider = ({ children }: { children: React.ReactNode }) => {
 	const [textEdited, setTextEdited] = useState(false)
 	const navigate = useNavigate()
 
+	useEffect(() => {
+		const storedNotes = localStorage.getItem('notes')
+		if (storedNotes) {
+			setNotes(JSON.parse(storedNotes))
+		}
+	}, [])
+
 	const addNote = () => {
 		const newNote: INote = {
 			id: uuidv4(),
@@ -66,8 +73,10 @@ export const NotesProvider = ({ children }: { children: React.ReactNode }) => {
 	}
 
 	const updateNote = (updatedNote: INote) => {
+		const currentTime = getCurrentTime()
+		const updatedNoteTime = { ...updatedNote, time: currentTime }
 		setNotes(
-			notes.map(note => (note.id === updatedNote.id ? updatedNote : note))
+			notes.map(note => (note.id === updatedNote.id ? updatedNoteTime : note))
 		)
 	}
 

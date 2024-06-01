@@ -2,6 +2,7 @@ import styles from './note.module.scss'
 import { useContext, useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { NotesContext, INote } from '../../context/NotesProvider/NotesProvider'
+import { getCurrentFullDate } from '../../utils/getCurrentFullDate'
 
 export const Note = () => {
 	const {
@@ -30,7 +31,7 @@ export const Note = () => {
 			setHeaderEdited(true)
 			const updatedNote = { ...note, headerNote: e.target.value }
 			setNote(updatedNote)
-			updateNote(updatedNote)
+			updateNoteAndDate(updatedNote)
 		}
 	}
 
@@ -39,8 +40,16 @@ export const Note = () => {
 			setTextEdited(true)
 			const updatedNote = { ...note, textNote: e.target.value }
 			setNote(updatedNote)
-			updateNote(updatedNote)
+			updateNoteAndDate(updatedNote)
 		}
+	}
+
+	const updateNoteAndDate = (updatedNote: INote) => {
+		const updatedNoteDate = {
+			...updatedNote,
+			fullDate: getCurrentFullDate()
+		}
+		updateNote(updatedNoteDate)
 	}
 
 	return (
