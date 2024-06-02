@@ -5,6 +5,8 @@ import { getCurrentTime } from '../../utils/getCurrentTime'
 import { getCurrentFullDate } from '../../utils/getCurrentFullDate'
 import { getDate } from '../../utils/getDate'
 import { useNavigate } from 'react-router-dom'
+import { modals } from '@mantine/modals'
+import { Text } from '@mantine/core'
 
 export interface INote {
 	id: string
@@ -20,6 +22,7 @@ export interface INotesContext {
 	toggleDarkMode: () => void
 	notes: INote[]
 	addNote: () => void
+	confirmDeleteNote: (id: string) => void
 	deleteNote: (id: string) => void
 	updateNote: (updatedNote: INote) => void
 	setHeaderEdited: (edited: boolean) => void
@@ -33,6 +36,7 @@ export const NotesContext = createContext<INotesContext>({
 	toggleDarkMode: () => {},
 	notes: [],
 	addNote: () => {},
+	confirmDeleteNote: () => {},
 	deleteNote: () => {},
 	updateNote: () => {},
 	setHeaderEdited: () => {},
@@ -72,6 +76,20 @@ export const NotesProvider = ({ children }: { children: React.ReactNode }) => {
 		navigate('/notes')
 	}
 
+	const confirmDeleteNote = (id: string) => {
+		modals.openConfirmModal({
+			title: 'Delete your note',
+			centered: true,
+			children: (
+				<Text size='sm'>Are you sure you want to delete this note?</Text>
+			),
+			labels: { confirm: 'Delete', cancel: 'No' },
+			confirmProps: { color: 'red' },
+			onCancel: () => console.log('Cancel'),
+			onConfirm: () => deleteNote(id)
+		})
+	}
+
 	const updateNote = (updatedNote: INote) => {
 		const currentTime = getCurrentTime()
 		const updatedNoteTime = { ...updatedNote, time: currentTime }
@@ -87,6 +105,7 @@ export const NotesProvider = ({ children }: { children: React.ReactNode }) => {
 				toggleDarkMode,
 				notes,
 				addNote,
+				confirmDeleteNote,
 				deleteNote,
 				updateNote,
 				setHeaderEdited,

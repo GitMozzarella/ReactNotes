@@ -1,12 +1,13 @@
 import { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import styles from './listitem.module.scss'
+import { Button } from '@mantine/core'
 import { NotesContext } from '../../context/NotesProvider/NotesProvider'
 import { MdDelete, MdModeEdit } from 'react-icons/md'
 import { getDate } from '../../utils/getDate'
 
 export const ListItem = () => {
-	const { notes, deleteNote } = useContext(NotesContext)
+	const { notes, confirmDeleteNote } = useContext(NotesContext)
 	const navigate = useNavigate()
 
 	const handleEditClick = (id: string) => {
@@ -32,18 +33,20 @@ export const ListItem = () => {
 							</p>
 						</div>
 						<div className={styles.buttons}>
-							<button
+							<Button
 								className={styles.editButton}
 								onClick={() => handleEditClick(note.id)}
+								variant='transparent'
 							>
 								<MdModeEdit />
-							</button>
-							<button
+							</Button>
+							<Button
 								className={styles.deleteButton}
-								onClick={() => deleteNote(note.id)}
+								onClick={() => confirmDeleteNote(note.id)}
+								variant='transparent'
 							>
 								<MdDelete />
-							</button>
+							</Button>
 						</div>
 					</li>
 				))
