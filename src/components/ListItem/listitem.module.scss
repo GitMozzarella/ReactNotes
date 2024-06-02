@@ -22,6 +22,7 @@
 			font-size: 20px;
 			margin-top: 8px;
 			transition: color 0.25 ease-in-out;
+			color: #4d4d4d;
 		}
 
 		.deleteButton:hover,
@@ -36,7 +37,11 @@
 	}
 
 	.note:hover {
-		background-color: #696969;
+		background-color: #747474;
+
+		.textNote {
+			color: #2c2c2c;
+		}
 	}
 
 	.headerNote {
@@ -61,7 +66,7 @@
 		}
 
 		.textNote {
-			color: rgb(53, 53, 53);
+			color: rgb(102, 102, 102);
 			overflow: hidden;
 			white-space: nowrap;
 			text-overflow: ellipsis;
