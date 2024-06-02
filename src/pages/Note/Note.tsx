@@ -1,8 +1,9 @@
 import styles from './note.module.scss'
-import { useContext, useState, useEffect } from 'react'
+import { useContext, useState, useEffect, useRef } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { NotesContext, INote } from '../../context/NotesProvider/NotesProvider'
 import { getCurrentFullDate } from '../../utils/getCurrentFullDate'
+import debounce from 'lodash/debounce'
 
 export const Note = () => {
 	const {
@@ -16,6 +17,7 @@ export const Note = () => {
 	const { id } = useParams<{ id: string }>()
 	const [note, setNote] = useState<INote | undefined>(undefined)
 	const navigate = useNavigate()
+	const debouncedUpdateNoteRef = useRef<(updatedNote: INote) => void>()
 
 	useEffect(() => {
 		const foundNote = notes.find(note => note.id === id)
@@ -26,12 +28,23 @@ export const Note = () => {
 		}
 	}, [id, notes, navigate])
 
+	useEffect(() => {
+		debouncedUpdateNoteRef.current = debounce((updatedNote: INote) => {
+			const updatedNoteDate = {
+				...updatedNote,
+				fullDate: getCurrentFullDate()
+			}
+			updateNote(updatedNoteDate)
+		}, 1100)
+	}, [updateNote])
+
 	const handleHeaderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		if (note) {
 			setHeaderEdited(true)
 			const updatedNote = { ...note, headerNote: e.target.value }
 			setNote(updatedNote)
-			updateNoteAndDate(updatedNote)
+			debouncedUpdateNoteRef.current &&
+				debouncedUpdateNoteRef.current(updatedNote)
 		}
 	}
 
@@ -40,16 +53,9 @@ export const Note = () => {
 			setTextEdited(true)
 			const updatedNote = { ...note, textNote: e.target.value }
 			setNote(updatedNote)
-			updateNoteAndDate(updatedNote)
+			debouncedUpdateNoteRef.current &&
+				debouncedUpdateNoteRef.current(updatedNote)
 		}
-	}
-
-	const updateNoteAndDate = (updatedNote: INote) => {
-		const updatedNoteDate = {
-			...updatedNote,
-			fullDate: getCurrentFullDate()
-		}
-		updateNote(updatedNoteDate)
 	}
 
 	return (
