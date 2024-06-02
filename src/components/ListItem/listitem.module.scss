@@ -1,7 +1,6 @@
 .list {
 	display: flex;
 	flex-direction: column;
-	height: 80vh;
 
 	.note {
 		display: flex;
@@ -21,7 +20,7 @@
 		.editButton {
 			font-size: 20px;
 			margin-top: 8px;
-			transition: color 0.25 ease-in-out;
+			transition: color 0.25s ease-in-out;
 			color: #4d4d4d;
 		}
 
@@ -79,4 +78,9 @@
 	text-align: center;
 	font-size: 24px;
 	color: #696969;
+}
+
+.scrollArea {
+	height: 80vh;
+	position: relative;
 }
