@@ -1,3 +1,9 @@
+import { NothingFound } from '../../components/NothingFound'
+import styles from './notfound.module.scss'
 export const NotFound = () => {
-	return <div>NotFound</div>
+	return (
+		<div className={styles.body}>
+			<NothingFound />
+		</div>
+	)
 }
