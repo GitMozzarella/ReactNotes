@@ -1,12 +1,13 @@
+/* search.module.scss */
 .searchInput {
 	width: 90%;
 	height: 40px;
-	margin: 10px auto;
-}
+	margin: auto;
 
-.searchInput input {
-	background-color: rgb(221, 221, 221);
-	font-size: 16px;
+	input {
+		margin-top: 20px;
+		font-size: 16px;
+	}
 }
 
 .icon {
