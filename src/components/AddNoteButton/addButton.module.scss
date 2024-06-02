@@ -6,15 +6,19 @@
 	align-items: center;
 	justify-content: center;
 
+	&:hover {
+		background-color: #b8b8b8;
+	}
+
 	&.darkMode {
-		background-color: #007bff;
+		background-color: #4d4d4d;
 
 		&:hover {
-			background-color: #006adb;
+			background-color: #c4c4c4;
 		}
 
 		&:active {
-			background-color: #007bff;
+			background-color: #b1b0b0;
 		}
 	}
 

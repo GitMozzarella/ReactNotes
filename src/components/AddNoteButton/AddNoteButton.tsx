@@ -16,7 +16,7 @@ export const AddNoteButton = () => {
 			<Button
 				variant='filled'
 				className={`${styles.addButton} ${darkMode ? styles.darkMode : ''}`}
-				style={{ width: '90%', height: '40px' }}
+				style={{ width: '90%', height: '40px', backgroundColor: '#666666' }}
 				onClick={handleAddNote}
 			>
 				Добавить заметку
