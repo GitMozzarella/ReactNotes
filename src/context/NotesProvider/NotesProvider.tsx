@@ -1,4 +1,5 @@
 import { createContext, useState, useEffect } from 'react'
+import '@mantine/notifications/styles.css'
 import { useToggle } from '../../hooks/useToggle'
 import { v4 as uuidv4 } from 'uuid'
 import { getCurrentTime } from '../../utils/getCurrentTime'
@@ -7,7 +8,7 @@ import { getDate } from '../../utils/getDate'
 import { useNavigate } from 'react-router-dom'
 import { modals } from '@mantine/modals'
 import { Text } from '@mantine/core'
-
+import { notifications } from '@mantine/notifications'
 export interface INote {
 	id: string
 	headerNote: string
@@ -73,6 +74,12 @@ export const NotesProvider = ({ children }: { children: React.ReactNode }) => {
 
 	const deleteNote = (id: string) => {
 		setNotes(notes.filter(note => note.id !== id))
+		notifications.show({
+			title: 'Note deleted',
+			message: 'Your note was successfully deleted.',
+			autoClose: 3000,
+			color: 'blue'
+		})
 		navigate('/notes')
 	}
 
@@ -84,7 +91,7 @@ export const NotesProvider = ({ children }: { children: React.ReactNode }) => {
 				<Text size='sm'>Are you sure you want to delete this note?</Text>
 			),
 			labels: { confirm: 'Delete', cancel: 'No' },
-			confirmProps: { color: 'red' },
+			confirmProps: { color: 'blue' },
 			onCancel: () => console.log('Cancel'),
 			onConfirm: () => deleteNote(id)
 		})
