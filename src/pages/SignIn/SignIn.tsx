@@ -1,24 +1,22 @@
 import React, { useState } from 'react'
 import { Input, Button, CloseButton } from '@mantine/core'
-import { LuAtSign } from 'react-icons/lu'
 import styles from './signin.module.scss'
+import { useAuth } from '../../context/AuthProvider/useAuth'
+import { useNavigate } from 'react-router-dom'
 
 interface UserData {
-	name: string
-	nickname: string
-
+	email: string
 	password: string
-	confirmPassword: string
 }
 
 export const SignIn: React.FC = () => {
 	const [userData, setUserData] = useState<UserData>({
-		name: '',
-		nickname: '',
-
-		password: '',
-		confirmPassword: ''
+		email: '',
+		password: ''
 	})
+
+	const auth = useAuth()
+	const navigate = useNavigate()
 
 	const handleChange = (
 		e: React.ChangeEvent<HTMLInputElement>,
@@ -29,11 +27,8 @@ export const SignIn: React.FC = () => {
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
-		setUserData({
-			name: '',
-			nickname: '',
-			password: '',
-			confirmPassword: ''
+		auth.signIn(userData.email, () => {
+			navigate('/')
 		})
 	}
 
@@ -42,44 +37,22 @@ export const SignIn: React.FC = () => {
 			<div className={styles.signin}>
 				<form onSubmit={handleSubmit}>
 					<Input.Wrapper
-						label='Enter your name'
+						label='Your e-mail'
 						required
 						size='md'
 						className={styles.labelMargin}
 					>
 						<Input
-							type='text'
-							placeholder='John'
-							value={userData.name}
-							onChange={e => handleChange(e, 'name')}
+							type='email'
+							placeholder='JohnDoe@gmail.com'
+							value={userData.email}
+							onChange={e => handleChange(e, 'email')}
 							rightSectionPointerEvents='all'
 							rightSection={
 								<CloseButton
 									aria-label='Clear input'
-									onClick={() => setUserData({ ...userData, name: '' })}
-									style={{ display: userData.name ? 'block' : 'none' }}
-								/>
-							}
-						/>
-					</Input.Wrapper>
-					<Input.Wrapper
-						label='Your nickname'
-						required
-						size='md'
-						className={styles.labelMargin}
-					>
-						<Input
-							type='text'
-							placeholder='Johny Silverhand'
-							value={userData.nickname}
-							onChange={e => handleChange(e, 'nickname')}
-							leftSection={<LuAtSign size={16} />}
-							rightSectionPointerEvents='all'
-							rightSection={
-								<CloseButton
-									aria-label='Clear input'
-									onClick={() => setUserData({ ...userData, nickname: '' })}
-									style={{ display: userData.nickname ? 'block' : 'none' }}
+									onClick={() => setUserData({ ...userData, email: '' })}
+									style={{ display: userData.email ? 'block' : 'none' }}
 								/>
 							}
 						/>
@@ -105,31 +78,7 @@ export const SignIn: React.FC = () => {
 							}
 						/>
 					</Input.Wrapper>
-					<Input.Wrapper
-						label='Confirm your password'
-						required
-						size='md'
-						className={styles.labelMargin}
-					>
-						<Input
-							type='password'
-							placeholder='••••••••'
-							value={userData.confirmPassword}
-							onChange={e => handleChange(e, 'confirmPassword')}
-							rightSectionPointerEvents='all'
-							rightSection={
-								<CloseButton
-									aria-label='Clear input'
-									onClick={() =>
-										setUserData({ ...userData, confirmPassword: '' })
-									}
-									style={{
-										display: userData.confirmPassword ? 'block' : 'none'
-									}}
-								/>
-							}
-						/>
-					</Input.Wrapper>
+
 					<Button size='sm' type='submit'>
 						Sign In
 					</Button>
