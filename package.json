@@ -28,6 +28,9 @@
     "uuid": "^9.0.1"
   },
   "devDependencies": {
+    "@firebase/app": "^0.10.5",
+    "@firebase/auth": "^1.7.4",
+    "@types/firebase": "^3.2.1",
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",
     "@types/uuid": "^9.0.8",
