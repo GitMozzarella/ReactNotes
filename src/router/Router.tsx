@@ -5,17 +5,20 @@ import { Content } from '../pages/Content'
 import { SignIn } from '../pages/SignIn'
 import { Note } from '../pages/Note'
 import { MainLayout } from '../components/MainLayout'
+import { PrivateRoute } from '../components/PrivateRoute'
 
 export const Router = () => {
 	return (
 		<Routes>
-			<Route element={<MainLayout />}>
-				<Route path='/' element={<Home />} />
-				<Route path='/notes' element={<Content />} />
-				<Route path='/notes/:id' element={<Note />} />
+			<Route path='/auth' element={<SignIn />} />
+			<Route element={<PrivateRoute />}>
+				<Route element={<MainLayout />}>
+					<Route path='/' element={<Home />} />
+					<Route path='/notes' element={<Content />} />
+					<Route path='/notes/:id' element={<Note />} />
+				</Route>
 			</Route>
 			<Route path='*' element={<NotFound />} />
-			<Route path='/auth' element={<SignIn />} />
 		</Routes>
 	)
 }
