@@ -1,33 +1,90 @@
-import { createContext, useState } from 'react'
+import React, { createContext, useEffect, useState } from 'react'
+import {
+	signInWithEmailAndPassword,
+	createUserWithEmailAndPassword,
+	signOut as firebaseSignOut,
+	onAuthStateChanged,
+	User,
+	updateProfile
+} from 'firebase/auth'
+import { auth } from '../../firebaseConfig'
 
 export interface AuthContextType {
-	user: string | null
-	signIn: (newUser: string, callback: () => void) => void
+	user: User | null
+	signIn: (email: string, password: string, callback: () => void) => void
+	signUp: (
+		email: string,
+		password: string,
+		name: string,
+		callback: () => void
+	) => void
 	signOut: (callback: () => void) => void
 }
 
 export const AuthContext = createContext<AuthContextType | null>(null)
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-	const [user, setUser] = useState<string | null>(() => {
-		return localStorage.getItem('user')
-	})
+	const [user, setUser] = useState<User | null>(null)
 
-	const signIn = (newUser: string, callback: () => void) => {
-		setUser(newUser)
-		localStorage.setItem('user', newUser)
-		callback()
+	useEffect(() => {
+		const unsubscribe = onAuthStateChanged(auth, currentUser => {
+			setUser(currentUser)
+		})
+
+		return () => {
+			unsubscribe()
+		}
+	}, [])
+
+	const signIn = (email: string, password: string, callback: () => void) => {
+		signInWithEmailAndPassword(auth, email, password)
+			.then(userCredential => {
+				setUser(userCredential.user)
+				callback()
+			})
+			.catch(error => {
+				console.error(error)
+			})
+	}
+
+	const signUp = (
+		email: string,
+		password: string,
+		name: string,
+		callback: () => void
+	) => {
+		createUserWithEmailAndPassword(auth, email, password)
+			.then(userCredential => {
+				const user = userCredential.user
+				updateProfile(user, { displayName: name }) // Устанавливаем имя пользователя
+					.then(() => {
+						setUser(user)
+						callback()
+					})
+					.catch(error => {
+						console.error(error)
+					})
+			})
+			.catch(error => {
+				console.error(error)
+			})
 	}
 
 	const signOut = (callback: () => void) => {
-		setUser(null)
-		localStorage.removeItem('user')
-		callback()
+		firebaseSignOut(auth)
+			.then(() => {
+				setUser(null)
+				callback()
+			})
+			.catch(error => {
+				console.error(error)
+			})
 	}
 
 	const value: AuthContextType = {
 		user,
 		signIn,
+		signUp,
 		signOut
 	}
 
