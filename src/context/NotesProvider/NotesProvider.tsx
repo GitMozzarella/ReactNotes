@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react'
+import { createContext, useState, useEffect } from 'react'
 import '@mantine/notifications/styles.css'
 import { useToggle } from '../../hooks/useToggle'
 import { v4 as uuidv4 } from 'uuid'
@@ -9,6 +9,18 @@ import { useNavigate } from 'react-router-dom'
 import { modals } from '@mantine/modals'
 import { Text } from '@mantine/core'
 import { notifications } from '@mantine/notifications'
+import { db, auth } from '../../firebaseConfig'
+import {
+	collection,
+	addDoc,
+	deleteDoc,
+	doc,
+	getDocs,
+	updateDoc,
+	query,
+	where
+} from 'firebase/firestore'
+
 export interface INote {
 	id: string
 	headerNote: string
@@ -16,6 +28,7 @@ export interface INote {
 	fullDate?: string
 	date?: string
 	textNote: string
+	userId?: string
 }
 
 export interface INotesContext {
@@ -51,21 +64,54 @@ export const NotesProvider = ({ children }: { children: React.ReactNode }) => {
 	const [notes, setNotes] = useState<INote[]>([])
 	const [headerEdited, setHeaderEdited] = useState(false)
 	const [textEdited, setTextEdited] = useState(false)
+	const [user, setUser] = useState(auth.currentUser)
 	const navigate = useNavigate()
 
-	const addNote = () => {
-		const newNote: INote = {
-			id: uuidv4(),
-			headerNote: '',
-			time: getCurrentTime(),
-			fullDate: getCurrentFullDate(),
-			date: getDate(),
-			textNote: ''
+	useEffect(() => {
+		const fetchNotes = async () => {
+			if (user) {
+				const q = query(
+					collection(db, 'notes'),
+					where('userId', '==', user.uid)
+				)
+				const querySnapshot = await getDocs(q)
+				const notesArray: INote[] = []
+				querySnapshot.forEach(doc => {
+					notesArray.push({ id: doc.id, ...doc.data() } as INote)
+				})
+				setNotes(notesArray)
+			}
 		}
-		setNotes([...notes, newNote])
+		fetchNotes()
+	}, [user])
+
+	useEffect(() => {
+		const unsubscribe = auth.onAuthStateChanged(currentUser => {
+			setUser(currentUser)
+		})
+		return () => unsubscribe()
+	}, [])
+
+	const addNote = async () => {
+		if (user) {
+			const newNote: INote = {
+				id: uuidv4(),
+				headerNote: '',
+				time: getCurrentTime(),
+				fullDate: getCurrentFullDate(),
+				date: getDate(),
+				textNote: ''
+			}
+			const docRef = await addDoc(collection(db, 'notes'), {
+				...newNote,
+				userId: user.uid
+			})
+			setNotes([...notes, { ...newNote, id: docRef.id }])
+		}
 	}
 
-	const deleteNote = (id: string) => {
+	const deleteNote = async (id: string) => {
+		await deleteDoc(doc(db, 'notes', id))
 		setNotes(notes.filter(note => note.id !== id))
 		notifications.show({
 			title: 'Note deleted',
@@ -90,12 +136,15 @@ export const NotesProvider = ({ children }: { children: React.ReactNode }) => {
 		})
 	}
 
-	const updateNote = (updatedNote: INote) => {
-		const currentTime = getCurrentTime()
-		const updatedNoteTime = { ...updatedNote, time: currentTime }
-		setNotes(
-			notes.map(note => (note.id === updatedNote.id ? updatedNoteTime : note))
-		)
+	const updateNote = async (updatedNote: INote) => {
+		if (user) {
+			const currentTime = getCurrentTime()
+			const updatedNoteTime = { ...updatedNote, time: currentTime }
+			await updateDoc(doc(db, 'notes', updatedNote.id), updatedNoteTime)
+			setNotes(
+				notes.map(note => (note.id === updatedNote.id ? updatedNoteTime : note))
+			)
+		}
 	}
 
 	return (
