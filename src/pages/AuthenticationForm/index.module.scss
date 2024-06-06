@@ -1,0 +1,18 @@
+.formContainer {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	background-image: url('../../assets/images/back.jpg');
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+.formWrapper {
+	max-width: 400px;
+	width: 100%;
+}
+
+.form {
+	background-color: rgba(232, 232, 232, 0.872) !important;
+}
