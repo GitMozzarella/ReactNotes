@@ -1,8 +1,7 @@
 import { Routes, Route } from 'react-router-dom'
 import { Home } from '../pages/Home'
 import { NotFound } from '../pages/NotFound'
-import { Content } from '../pages/Content'
-// import { SignIn } from '../pages/SignIn'
+import { Workspace } from '../pages/Workspace'
 import { Note } from '../pages/Note'
 import { MainLayout } from '../components/MainLayout'
 import { PrivateRoute } from '../components/PrivateRoute'
@@ -15,7 +14,7 @@ export const Router = () => {
 			<Route element={<PrivateRoute />}>
 				<Route element={<MainLayout />}>
 					<Route path='/' element={<Home />} />
-					<Route path='/notes' element={<Content />} />
+					<Route path='/notes' element={<Workspace />} />
 					<Route path='/notes/:id' element={<Note />} />
 				</Route>
 			</Route>

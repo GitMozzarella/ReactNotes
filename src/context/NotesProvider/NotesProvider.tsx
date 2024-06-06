@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect } from 'react'
+import { createContext, useState } from 'react'
 import '@mantine/notifications/styles.css'
 import { useToggle } from '../../hooks/useToggle'
 import { v4 as uuidv4 } from 'uuid'
@@ -52,13 +52,6 @@ export const NotesProvider = ({ children }: { children: React.ReactNode }) => {
 	const [headerEdited, setHeaderEdited] = useState(false)
 	const [textEdited, setTextEdited] = useState(false)
 	const navigate = useNavigate()
-
-	useEffect(() => {
-		const storedNotes = localStorage.getItem('notes')
-		if (storedNotes) {
-			setNotes(JSON.parse(storedNotes))
-		}
-	}, [])
 
 	const addNote = () => {
 		const newNote: INote = {
