@@ -1,4 +1,6 @@
 import { Button, ButtonProps } from '@mantine/core'
+import { useAuth } from '../../context/AuthProvider/useAuth'
+import { useNavigate } from 'react-router-dom'
 
 function GoogleIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
 	return (
@@ -32,5 +34,21 @@ function GoogleIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
 export function GoogleButton(
 	props: ButtonProps & React.ComponentPropsWithoutRef<'button'>
 ) {
-	return <Button leftSection={<GoogleIcon />} variant='default' {...props} />
+	const { signInWithGoogle } = useAuth()
+	const navigate = useNavigate()
+
+	const handleGoogleSignIn = () => {
+		signInWithGoogle(() => {
+			navigate('/')
+		})
+	}
+
+	return (
+		<Button
+			leftSection={<GoogleIcon />}
+			variant='default'
+			onClick={handleGoogleSignIn}
+			{...props}
+		/>
+	)
 }

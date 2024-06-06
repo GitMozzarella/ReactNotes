@@ -4,7 +4,9 @@ import {
 	createUserWithEmailAndPassword,
 	signOut as firebaseSignOut,
 	onAuthStateChanged,
+	signInWithPopup,
 	User,
+	GoogleAuthProvider,
 	updateProfile
 } from 'firebase/auth'
 import { auth } from '../../firebaseConfig'
@@ -19,6 +21,7 @@ export interface AuthContextType {
 		callback: () => void
 	) => void
 	signOut: (callback: () => void) => void
+	signInWithGoogle: (callback: () => void) => void
 }
 
 export const AuthContext = createContext<AuthContextType | null>(null)
@@ -56,7 +59,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 		createUserWithEmailAndPassword(auth, email, password)
 			.then(userCredential => {
 				const user = userCredential.user
-				updateProfile(user, { displayName: name }) // Устанавливаем имя пользователя
+				updateProfile(user, { displayName: name })
 					.then(() => {
 						setUser(user)
 						callback()
@@ -81,10 +84,23 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 			})
 	}
 
+	const signInWithGoogle = (callback: () => void) => {
+		const provider = new GoogleAuthProvider()
+		signInWithPopup(auth, provider)
+			.then(result => {
+				setUser(result.user)
+				callback()
+			})
+			.catch(error => {
+				console.error(error)
+			})
+	}
+
 	const value: AuthContextType = {
 		user,
 		signIn,
 		signUp,
+		signInWithGoogle,
 		signOut
 	}
 
