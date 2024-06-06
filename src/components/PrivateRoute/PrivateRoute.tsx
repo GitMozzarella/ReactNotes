@@ -10,7 +10,11 @@ export function PrivateRoute({ children }: PrivateRouteProps) {
 	const auth = useAuth()
 	const location = useLocation()
 
-	if (auth === undefined || auth.user === null) {
+	if (auth === undefined) {
+		return <>Loading...</>
+	}
+
+	if (auth.user === null) {
 		return <Navigate to='/auth' state={{ from: location.pathname }} replace />
 	}
 
