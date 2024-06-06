@@ -21,10 +21,10 @@ export const Note = () => {
 
 	useEffect(() => {
 		const foundNote = notes.find(note => note.id === id)
-		if (!foundNote) {
-			navigate('/notfound')
-		} else {
+		if (foundNote) {
 			setNote(foundNote)
+		} else {
+			navigate('/notfound')
 		}
 	}, [id, notes, navigate])
 
