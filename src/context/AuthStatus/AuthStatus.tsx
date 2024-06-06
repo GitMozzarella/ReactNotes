@@ -25,7 +25,9 @@ export function AuthStatus() {
 					<FaUserAlt />
 				</span>
 
-				<p className={styles.username}>{auth.user}</p>
+				<p className={styles.username}>
+					{auth.user.displayName || auth.user.email}
+				</p>
 				<button onClick={handleSignOut} className={styles.logoutButton}>
 					<MdLogout />
 				</button>
