@@ -1,5 +1,5 @@
 import styles from './note.module.scss'
-import { useContext, useState, useEffect, useRef } from 'react'
+import { useContext, useState, useEffect, useRef, useCallback } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { NotesContext, INote } from '../../context/NotesProvider/NotesProvider'
 import { getCurrentFullDate } from '../../utils/getCurrentFullDate'
@@ -15,18 +15,21 @@ export const Note = () => {
 		textEdited
 	} = useContext(NotesContext)
 	const { id } = useParams<{ id: string }>()
-	const [note, setNote] = useState<INote | undefined>(undefined)
+	const [note, setNote] = useState<INote | null>(null)
 	const navigate = useNavigate()
 	const debouncedUpdateNoteRef = useRef<(updatedNote: INote) => void>()
 
 	useEffect(() => {
 		const foundNote = notes.find(note => note.id === id)
+
 		if (foundNote) {
 			setNote(foundNote)
+			setHeaderEdited(!!foundNote.headerNote)
+			setTextEdited(!!foundNote.textNote)
 		} else {
-			navigate('/notfound')
+			navigate('/')
 		}
-	}, [id, notes, navigate])
+	}, [id, notes, navigate, setHeaderEdited, setTextEdited])
 
 	useEffect(() => {
 		debouncedUpdateNoteRef.current = debounce((updatedNote: INote) => {
@@ -35,28 +38,36 @@ export const Note = () => {
 				fullDate: getCurrentFullDate()
 			}
 			updateNote(updatedNoteDate)
-		}, 1100)
+		}, 500)
 	}, [updateNote])
 
-	const handleHeaderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		if (note) {
-			setHeaderEdited(true)
-			const updatedNote = { ...note, headerNote: e.target.value }
-			setNote(updatedNote)
-			debouncedUpdateNoteRef.current &&
-				debouncedUpdateNoteRef.current(updatedNote)
-		}
-	}
+	const handleHeaderChange = useCallback(
+		(e: React.ChangeEvent<HTMLInputElement>) => {
+			if (note) {
+				setHeaderEdited(true)
+				const updatedNote = { ...note, headerNote: e.target.value }
+				setNote(updatedNote)
+				if (debouncedUpdateNoteRef.current) {
+					debouncedUpdateNoteRef.current(updatedNote)
+				}
+			}
+		},
+		[note, setHeaderEdited, setNote, debouncedUpdateNoteRef]
+	)
 
-	const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-		if (note) {
-			setTextEdited(true)
-			const updatedNote = { ...note, textNote: e.target.value }
-			setNote(updatedNote)
-			debouncedUpdateNoteRef.current &&
-				debouncedUpdateNoteRef.current(updatedNote)
-		}
-	}
+	const handleTextChange = useCallback(
+		(e: React.ChangeEvent<HTMLTextAreaElement>) => {
+			if (note) {
+				setTextEdited(true)
+				const updatedNote = { ...note, textNote: e.target.value }
+				setNote(updatedNote)
+				if (debouncedUpdateNoteRef.current) {
+					debouncedUpdateNoteRef.current(updatedNote)
+				}
+			}
+		},
+		[note, setTextEdited, setNote, debouncedUpdateNoteRef]
+	)
 
 	return (
 		<div className={styles.noteContainer}>
