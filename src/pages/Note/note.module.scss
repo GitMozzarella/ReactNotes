@@ -4,7 +4,7 @@
 
 	margin: 20px auto;
 	width: 90%;
-	height: 90%;
+	height: 85vh;
 
 	.fullDate {
 		font-size: 18px;
@@ -22,17 +22,22 @@
 		font-weight: 800;
 		border: none;
 	}
-
-	.textNote {
+	.scrollArea {
+		height: 100vh;
 		width: 100%;
-		height: 100%;
-		padding: 5px 50px 5px 80px;
-		resize: none;
-		border: none;
 
-		&:focus {
-			outline: none;
+		.textNote {
+			width: 100%;
+			height: 100vh;
+			padding: 5px 50px 5px 80px;
+			resize: none;
 			border: none;
+			overflow: hidden;
+
+			&:focus {
+				outline: none;
+				border: none;
+			}
 		}
 	}
 }

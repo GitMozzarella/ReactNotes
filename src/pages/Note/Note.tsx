@@ -4,6 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { NotesContext, INote } from '../../context/NotesProvider/NotesProvider'
 import { getCurrentFullDate } from '../../utils/getCurrentFullDate'
 import debounce from 'lodash/debounce'
+import { ScrollArea } from '@mantine/core'
 
 export const Note = () => {
 	const {
@@ -38,7 +39,7 @@ export const Note = () => {
 				fullDate: getCurrentFullDate()
 			}
 			updateNote(updatedNoteDate)
-		}, 500)
+		}, 900)
 	}, [updateNote])
 
 	const handleHeaderChange = useCallback(
@@ -82,13 +83,20 @@ export const Note = () => {
 						className={styles.headerNote}
 						maxLength={25}
 					/>
-					<textarea
-						value={textEdited ? note.textNote : ''}
-						placeholder='Текст заметки...'
-						onChange={handleTextChange}
-						className={styles.textNote}
-						maxLength={3500}
-					></textarea>
+					<ScrollArea
+						type='scroll'
+						scrollbarSize={10}
+						offsetScrollbars
+						className={styles.scrollArea}
+					>
+						<textarea
+							value={textEdited ? note.textNote : ''}
+							placeholder='Текст заметки...'
+							onChange={handleTextChange}
+							className={styles.textNote}
+							maxLength={10000}
+						></textarea>
+					</ScrollArea>
 				</>
 			)}
 		</div>
