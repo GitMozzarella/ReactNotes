@@ -14,10 +14,6 @@ export function AuthStatus() {
 		})
 	}
 
-	if (auth.user === null || auth.user === undefined) {
-		return <div className={styles.noLogged}>You are not logged in</div>
-	}
-
 	return (
 		<>
 			<div className={styles.message}>
@@ -26,7 +22,7 @@ export function AuthStatus() {
 				</span>
 
 				<p className={styles.username}>
-					{auth.user.displayName || auth.user.email}
+					{auth.user?.displayName || auth.user?.email}
 				</p>
 				<button onClick={handleSignOut} className={styles.logoutButton}>
 					<MdLogout />
