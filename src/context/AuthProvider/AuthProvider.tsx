@@ -27,7 +27,10 @@ export interface AuthContextType {
 export const AuthContext = createContext<AuthContextType | null>(null)
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-	const [user, setUser] = useState<User | null>(null)
+	const [user, setUser] = useState<User | null>(() => {
+		const savedUser = localStorage.getItem('user')
+		return savedUser ? JSON.parse(savedUser) : null
+	})
 
 	useEffect(() => {
 		const unsubscribe = onAuthStateChanged(auth, currentUser => {
@@ -43,6 +46,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 		signInWithEmailAndPassword(auth, email, password)
 			.then(userCredential => {
 				setUser(userCredential.user)
+				localStorage.setItem('user', JSON.stringify(userCredential.user))
 				callback()
 			})
 			.catch(error => {
@@ -62,6 +66,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 				updateProfile(user, { displayName: name })
 					.then(() => {
 						setUser(user)
+						localStorage.setItem('user', JSON.stringify(user))
 						callback()
 					})
 					.catch(error => {
@@ -77,6 +82,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 		firebaseSignOut(auth)
 			.then(() => {
 				setUser(null)
+				localStorage.removeItem('user')
 				callback()
 			})
 			.catch(error => {
@@ -89,6 +95,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 		signInWithPopup(auth, provider)
 			.then(result => {
 				setUser(result.user)
+				localStorage.setItem('user', JSON.stringify(result.user))
 				callback()
 			})
 			.catch(error => {
