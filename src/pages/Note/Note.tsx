@@ -3,8 +3,12 @@ import { useContext, useState, useEffect, useRef, useCallback } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { NotesContext, INote } from '../../context/NotesProvider/NotesProvider'
 import { getCurrentFullDate } from '../../utils/getCurrentFullDate'
+import { getDate } from '../../utils/getDate'
+import { getCurrentTime } from '../../utils/getCurrentTime'
 import debounce from 'lodash/debounce'
 import { ScrollArea } from '@mantine/core'
+import { SimpleMdeReact } from 'react-simplemde-editor'
+import 'easymde/dist/easymde.min.css'
 
 export const Note = () => {
 	const {
@@ -36,31 +40,34 @@ export const Note = () => {
 		debouncedUpdateNoteRef.current = debounce((updatedNote: INote) => {
 			const updatedNoteDate = {
 				...updatedNote,
-				fullDate: getCurrentFullDate()
+				fullDate: getCurrentFullDate(),
+				date: getDate(),
+				time: getCurrentTime()
 			}
 			updateNote(updatedNoteDate)
 		}, 900)
 	}, [updateNote])
-
-	const handleHeaderChange = useCallback(
-		(e: React.ChangeEvent<HTMLInputElement>) => {
-			if (note) {
-				setHeaderEdited(true)
-				const updatedNote = { ...note, headerNote: e.target.value }
-				setNote(updatedNote)
-				if (debouncedUpdateNoteRef.current) {
-					debouncedUpdateNoteRef.current(updatedNote)
+	const handleHeaderChange: React.ChangeEventHandler<HTMLInputElement> =
+		useCallback(
+			event => {
+				const value = event.target.value
+				if (note) {
+					setHeaderEdited(true)
+					const updatedNote = { ...note, headerNote: value }
+					setNote(updatedNote)
+					if (debouncedUpdateNoteRef.current) {
+						debouncedUpdateNoteRef.current(updatedNote)
+					}
 				}
-			}
-		},
-		[note, setHeaderEdited, setNote, debouncedUpdateNoteRef]
-	)
+			},
+			[note, setHeaderEdited, setNote, debouncedUpdateNoteRef]
+		)
 
 	const handleTextChange = useCallback(
-		(e: React.ChangeEvent<HTMLTextAreaElement>) => {
+		(value: string) => {
 			if (note) {
 				setTextEdited(true)
-				const updatedNote = { ...note, textNote: e.target.value }
+				const updatedNote = { ...note, textNote: value }
 				setNote(updatedNote)
 				if (debouncedUpdateNoteRef.current) {
 					debouncedUpdateNoteRef.current(updatedNote)
@@ -89,13 +96,11 @@ export const Note = () => {
 						offsetScrollbars
 						className={styles.scrollArea}
 					>
-						<textarea
+						<SimpleMdeReact
 							value={textEdited ? note.textNote : ''}
-							placeholder='Текст заметки...'
 							onChange={handleTextChange}
-							className={styles.textNote}
-							maxLength={10000}
-						></textarea>
+							placeholder='Текст заметки...'
+						/>
 					</ScrollArea>
 				</>
 			)}
