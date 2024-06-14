@@ -6,19 +6,19 @@ import { Note } from '../pages/Note'
 import { MainLayout } from '../components/MainLayout'
 import { PrivateRoute } from '../components/PrivateRoute'
 import { AuthenticationForm } from '../pages/AuthenticationForm/AuthenticationForm'
-
+import { Path } from './Path'
 export const Router = () => {
 	return (
 		<Routes>
-			<Route path='/auth' element={<AuthenticationForm />} />
+			<Route path={Path.auth} element={<AuthenticationForm />} />
 			<Route element={<PrivateRoute />}>
 				<Route element={<MainLayout />}>
-					<Route path='/' element={<Home />} />
-					<Route path='/notes' element={<Workspace />} />
-					<Route path='/notes/:id' element={<Note />} />
+					<Route path={Path.home} element={<Home />} />
+					<Route path={Path.notes} element={<Workspace />} />
+					<Route path={Path.note} element={<Note />} />
 				</Route>
 			</Route>
-			<Route path='*' element={<NotFound />} />
+			<Route path={Path.notfound} element={<NotFound />} />
 		</Routes>
 	)
 }
