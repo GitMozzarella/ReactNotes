@@ -1,43 +1,36 @@
 .noteContainer {
 	display: flex;
 	flex-direction: column;
-
 	margin: 20px auto;
 	width: 90%;
 	height: 85vh;
+}
 
-	.fullDate {
-		font-size: 18px;
-		font-weight: 600;
-		color: rgb(109, 109, 109);
-		margin-top: 15px;
-		cursor: default;
-	}
+.fullDate {
+	font-size: 18px;
+	font-weight: 600;
+	color: rgb(109, 109, 109);
+	margin-top: 15px;
+	cursor: default;
+}
 
-	.headerNote {
-		width: 500px;
-		padding-left: 80px;
-		margin-bottom: 25px;
-		font-size: 24px;
-		font-weight: 800;
-		border: none;
-	}
-	.scrollArea {
-		height: 100vh;
-		width: 100%;
+.headerNote {
+	width: 500px;
+	padding-left: 80px;
+	margin-bottom: 25px;
+	font-size: 24px;
+	font-weight: 800;
+	border: none;
+}
 
-		.textNote {
-			width: 100%;
-			height: 100vh;
-			padding: 5px 50px 5px 80px;
-			resize: none;
-			border: none;
-			overflow: hidden;
+.scrollArea {
+	width: 100%;
+	height: 100vh;
 
-			&:focus {
-				outline: none;
-				border: none;
-			}
-		}
-	}
+	border-radius: 5px;
+	margin-top: 10px;
+}
+
+.textNote {
+	height: 2000px;
 }
