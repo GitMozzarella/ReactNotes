@@ -1,4 +1,5 @@
 import { User } from 'firebase/auth'
+import { ReactNode } from 'react'
 
 export interface INote {
 	id: string
@@ -46,4 +47,16 @@ export interface FormValues {
 	email: string
 	name: string
 	password: string
+}
+
+export interface ErrorBoundaryProps {
+	children: ReactNode
+}
+
+export interface ErrorBoundaryState {
+	hasError: boolean
+}
+
+export interface RouteWithErrorBoundaryProps {
+	children: React.ReactNode
 }
