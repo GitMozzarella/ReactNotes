@@ -1,14 +1,16 @@
 import styles from './note.module.scss'
-import { useContext, useState, useEffect, useRef, useCallback } from 'react'
+import { useContext, useState, useEffect, useCallback } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { NotesContext, INote } from '../../context/NotesProvider/NotesProvider'
+import { NotesContext } from '../../context/NotesProvider/NotesProvider'
+import { INote } from '../../types/types'
 import { getCurrentFullDate } from '../../utils/getCurrentFullDate'
 import { getDate } from '../../utils/getDate'
 import { getCurrentTime } from '../../utils/getCurrentTime'
-import debounce from 'lodash/debounce'
 import { ScrollArea } from '@mantine/core'
 import { SimpleMdeReact } from 'react-simplemde-editor'
 import 'easymde/dist/easymde.min.css'
+import { newNote, additionalText } from '../../constants/variables'
+import { Path } from '../../router/Path'
 
 export const Note = () => {
 	const {
@@ -22,7 +24,7 @@ export const Note = () => {
 	const { id } = useParams<{ id: string }>()
 	const [note, setNote] = useState<INote | null>(null)
 	const navigate = useNavigate()
-	const debouncedUpdateNoteRef = useRef<(updatedNote: INote) => void>()
+	const [saveTimeout, setSaveTimeout] = useState<NodeJS.Timeout | null>(null)
 
 	useEffect(() => {
 		const foundNote = notes.find(note => note.id === id)
@@ -32,12 +34,12 @@ export const Note = () => {
 			setHeaderEdited(!!foundNote.headerNote)
 			setTextEdited(!!foundNote.textNote)
 		} else {
-			navigate('/')
+			navigate(Path.home)
 		}
 	}, [id, notes, navigate, setHeaderEdited, setTextEdited])
 
-	useEffect(() => {
-		debouncedUpdateNoteRef.current = debounce((updatedNote: INote) => {
+	const saveNote = useCallback(
+		(updatedNote: INote) => {
 			const updatedNoteDate = {
 				...updatedNote,
 				fullDate: getCurrentFullDate(),
@@ -45,8 +47,10 @@ export const Note = () => {
 				time: getCurrentTime()
 			}
 			updateNote(updatedNoteDate)
-		}, 900)
-	}, [updateNote])
+		},
+		[updateNote]
+	)
+
 	const handleHeaderChange: React.ChangeEventHandler<HTMLInputElement> =
 		useCallback(
 			event => {
@@ -55,12 +59,11 @@ export const Note = () => {
 					setHeaderEdited(true)
 					const updatedNote = { ...note, headerNote: value }
 					setNote(updatedNote)
-					if (debouncedUpdateNoteRef.current) {
-						debouncedUpdateNoteRef.current(updatedNote)
-					}
+					if (saveTimeout) clearTimeout(saveTimeout)
+					setSaveTimeout(setTimeout(() => saveNote(updatedNote), 300))
 				}
 			},
-			[note, setHeaderEdited, setNote, debouncedUpdateNoteRef]
+			[note, setHeaderEdited, setNote, saveTimeout, saveNote]
 		)
 
 	const handleTextChange = useCallback(
@@ -69,12 +72,11 @@ export const Note = () => {
 				setTextEdited(true)
 				const updatedNote = { ...note, textNote: value }
 				setNote(updatedNote)
-				if (debouncedUpdateNoteRef.current) {
-					debouncedUpdateNoteRef.current(updatedNote)
-				}
+				if (saveTimeout) clearTimeout(saveTimeout)
+				setSaveTimeout(setTimeout(() => saveNote(updatedNote), 400))
 			}
 		},
-		[note, setTextEdited, setNote, debouncedUpdateNoteRef]
+		[note, setTextEdited, setNote, saveTimeout, saveNote]
 	)
 
 	return (
@@ -85,7 +87,7 @@ export const Note = () => {
 					<input
 						type='text'
 						value={headerEdited ? note.headerNote : ''}
-						placeholder='Новая заметка'
+						placeholder={newNote}
 						onChange={handleHeaderChange}
 						className={styles.headerNote}
 						maxLength={25}
@@ -99,7 +101,8 @@ export const Note = () => {
 						<SimpleMdeReact
 							value={textEdited ? note.textNote : ''}
 							onChange={handleTextChange}
-							placeholder='Текст заметки...'
+							placeholder={additionalText}
+							className={styles.textNote}
 						/>
 					</ScrollArea>
 				</>
