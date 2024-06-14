@@ -2,18 +2,23 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<link rel="icon" type="image" href="/src//assets/icons/favicon.png" />
+		<link rel="icon" type="image" href="/src/assets/icons/notes.png" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link rel="manifest" href="/manifest.json" />
+		<link rel="apple-touch-icon" href="/src/assets/icons/150x150.png" />
+		<link rel="apple-mobile-web-app-status-bar" content="#56c7fc" />
+		<meta name="theme-color" content="#56c7fc" />
 		<link
 			href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&display=swap"
 			rel="stylesheet"
 		/>
-		<title>React Notes</title>
+		<title>Notes</title>
 	</head>
 	<body>
 		<div id="root"></div>
 		<script type="module" src="/src/main.tsx"></script>
+		<script type="module" src="/src/registrationSW.js"></script>
 	</body>
 </html>
