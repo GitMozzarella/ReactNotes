@@ -3,6 +3,8 @@ import { Illustration } from './Illustration'
 import styles from './nothingFound.module.scss'
 import { useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
+import { messages } from '../../constants/messages'
+import { Path } from '../../router/Path'
 
 export const NothingFound = () => {
 	const navigate = useNavigate()
@@ -18,7 +20,7 @@ export const NothingFound = () => {
 
 	useEffect(() => {
 		if (timer === 0) {
-			navigate('/')
+			navigate(Path.home)
 		}
 	}, [timer, navigate])
 
@@ -27,20 +29,17 @@ export const NothingFound = () => {
 			<div className={styles.inner}>
 				<Illustration className={styles.image} />
 				<div className={styles.content}>
-					<Title className={styles.title}>Ничего не найдено</Title>
-					<Text className={styles.description}>
-						К сожалению, страница не найдена. Возможно, вы ввели неправильный
-						адрес или страница была перемещена. Попробуйте проверить URL еще раз
-						или вернуться на предыдущую страницу.
-					</Text>
+					<Title className={styles.title}>{messages.notFound}</Title>
+					<Text className={styles.description}>{messages.description}</Text>
 					<Group justify='center'>
 						<Button size='md' onClick={() => navigate('/')}>
-							Перейти на главную страницу
+							{messages.redirectToHome}
 						</Button>
 					</Group>
 					<Text className={styles.timerMessage}>
-						Вы будете перенаправлены на главную страницу через{' '}
-						<span className={styles.timer}>{timer}</span> секунд
+						{messages.timerMessage}
+						<span className={styles.timer}>{timer}</span>
+						{messages.seconds}
 					</Text>
 				</div>
 			</div>

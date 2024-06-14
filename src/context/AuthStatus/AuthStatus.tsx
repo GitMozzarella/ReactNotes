@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import styles from './status.module.scss'
 import { MdLogout } from 'react-icons/md'
 import { FaUserAlt } from 'react-icons/fa'
+import { Path } from '../../router/Path'
 
 export function AuthStatus() {
 	const auth = useAuth()
@@ -10,7 +11,7 @@ export function AuthStatus() {
 
 	const handleSignOut = () => {
 		auth.signOut(() => {
-			navigate('/auth')
+			navigate(Path.auth)
 		})
 	}
 

@@ -1,39 +1,29 @@
 import { useContext } from 'react'
 import styles from './home.module.scss'
 import { NotesContext } from '../../context/NotesProvider/NotesProvider'
+import { Text } from '@mantine/core'
+import { homeText } from '../../constants/messages'
 
 export const Home: React.FC = () => {
 	const { darkMode } = useContext(NotesContext)
 
 	return (
 		<div className={`${styles.container} ${darkMode ? styles.darkTheme : ''}`}>
-			<h1 className={styles.title}>Добро пожаловать в React-Notes!</h1>
-			<p className={styles.text}>
-				Это приложение предназначено для управления вашими заметками. Мы
-				использовали самые современные технологии, включая:
-			</p>
+			<h1 className={styles.title}>{homeText.title}</h1>
+			<Text className={styles.text} size='lg'>
+				{homeText.description}
+			</Text>
 			<ul className={styles.list}>
-				<li className={styles.listItem}>
-					<strong className={styles.highlight}>React</strong> - библиотека для
-					создания динамических пользовательских интерфейсов
-				</li>
-				<li className={styles.listItem}>
-					<strong className={styles.highlight}>TypeScript</strong> - надстройка
-					над JavaScript, обеспечивающая статическую типизацию
-				</li>
-				<li className={styles.listItem}>
-					<strong className={styles.highlight}>Context API</strong> - система
-					управления состоянием, встроенная в React
-				</li>
-				<li className={styles.listItem}>
-					<strong className={styles.highlight}>React Router DOM</strong> -
-					библиотека для маршрутизации в React-приложениях
-				</li>
+				{homeText.listItems.map((item, index) => (
+					<li key={index} className={styles.listItem}>
+						<strong className={styles.highlight}>{item.highlight}</strong> -
+						{item.text}
+					</li>
+				))}
 			</ul>
-			<p className={styles.text}>
-				Оцените удобство и функциональность нашего приложения. Начните управлять
-				своими заметками уже сегодня!
-			</p>
+			<Text className={styles.text} size='lg' ta='center'>
+				{homeText.finalMessage}
+			</Text>
 		</div>
 	)
 }
