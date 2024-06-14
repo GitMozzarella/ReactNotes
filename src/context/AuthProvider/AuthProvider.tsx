@@ -10,25 +10,14 @@ import {
 	updateProfile
 } from 'firebase/auth'
 import { auth } from '../../firebaseConfig'
-
-export interface AuthContextType {
-	user: User | null
-	signIn: (email: string, password: string, callback: () => void) => void
-	signUp: (
-		email: string,
-		password: string,
-		name: string,
-		callback: () => void
-	) => void
-	signOut: (callback: () => void) => void
-	signInWithGoogle: (callback: () => void) => void
-}
+import { AuthContextType } from '../../types/types'
+import { userString } from '../../constants/variables'
 
 export const AuthContext = createContext<AuthContextType | null>(null)
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
 	const [user, setUser] = useState<User | null>(() => {
-		const savedUser = localStorage.getItem('user')
+		const savedUser = localStorage.getItem(userString)
 		return savedUser ? JSON.parse(savedUser) : null
 	})
 
@@ -42,15 +31,21 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 		}
 	}, [])
 
-	const signIn = (email: string, password: string, callback: () => void) => {
+	const signIn = (
+		email: string,
+		password: string,
+		callback: () => void,
+		catcher: () => void
+	) => {
 		signInWithEmailAndPassword(auth, email, password)
 			.then(userCredential => {
 				setUser(userCredential.user)
-				localStorage.setItem('user', JSON.stringify(userCredential.user))
+				localStorage.setItem(userString, JSON.stringify(userCredential.user))
 				callback()
 			})
 			.catch(error => {
-				console.error(error)
+				alert(error)
+				catcher()
 			})
 	}
 
@@ -66,7 +61,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 				updateProfile(user, { displayName: name })
 					.then(() => {
 						setUser(user)
-						localStorage.setItem('user', JSON.stringify(user))
+						localStorage.setItem(userString, JSON.stringify(user))
 						callback()
 					})
 					.catch(error => {
@@ -82,7 +77,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 		firebaseSignOut(auth)
 			.then(() => {
 				setUser(null)
-				localStorage.removeItem('user')
+				localStorage.removeItem(userString)
 				callback()
 			})
 			.catch(error => {
@@ -95,7 +90,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 		signInWithPopup(auth, provider)
 			.then(result => {
 				setUser(result.user)
-				localStorage.setItem('user', JSON.stringify(result.user))
+				localStorage.setItem(userString, JSON.stringify(result.user))
 				callback()
 			})
 			.catch(error => {
