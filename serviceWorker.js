@@ -23,6 +23,7 @@ const ASSETS = [
 	'/src/components/RouteWithErrorBoundary/',
 	'/src/components/Sidebar/',
 	'/src/components/Toolbar/',
+	'/src/context/NotesProvider/',
 	'/src/index.scss',
 	'/src/main.tsx',
 	'/src/hooks/',
