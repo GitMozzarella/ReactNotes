@@ -21,6 +21,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 		return savedUser ? JSON.parse(savedUser) : null
 	})
 
+	const [accessToken, setAccessToken] = useState<string | null>(() => {
+		const savedAccessToken = localStorage.getItem('accessToken')
+		return savedAccessToken ? savedAccessToken : null
+	})
+
 	useEffect(() => {
 		const unsubscribe = onAuthStateChanged(auth, currentUser => {
 			setUser(currentUser)
@@ -31,21 +36,25 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 		}
 	}, [])
 
-	const signIn = (
-		email: string,
-		password: string,
-		callback: () => void,
-		catcher: () => void
-	) => {
+	const signIn = (email: string, password: string, callback: () => void) => {
 		signInWithEmailAndPassword(auth, email, password)
 			.then(userCredential => {
-				setUser(userCredential.user)
-				localStorage.setItem(userString, JSON.stringify(userCredential.user))
-				callback()
+				const user = userCredential.user
+				user
+					.getIdToken()
+					.then(accessToken => {
+						setAccessToken(accessToken)
+						setUser(user)
+						localStorage.setItem('accessToken', accessToken)
+						localStorage.setItem(userString, JSON.stringify(user))
+						callback()
+					})
+					.catch(error => {
+						console.error(error)
+					})
 			})
 			.catch(error => {
 				alert(error)
-				catcher()
 			})
 	}
 
@@ -58,11 +67,20 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 		createUserWithEmailAndPassword(auth, email, password)
 			.then(userCredential => {
 				const user = userCredential.user
-				updateProfile(user, { displayName: name })
-					.then(() => {
-						setUser(user)
-						localStorage.setItem(userString, JSON.stringify(user))
-						callback()
+				user
+					.getIdToken()
+					.then(accessToken => {
+						setAccessToken(accessToken)
+						updateProfile(user, { displayName: name })
+							.then(() => {
+								setUser(user)
+								localStorage.setItem('accessToken', accessToken)
+								localStorage.setItem(userString, JSON.stringify(user))
+								callback()
+							})
+							.catch(error => {
+								console.error(error)
+							})
 					})
 					.catch(error => {
 						console.error(error)
@@ -76,8 +94,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 	const signOut = (callback: () => void) => {
 		firebaseSignOut(auth)
 			.then(() => {
-				setUser(null)
+				localStorage.removeItem('accessToken')
 				localStorage.removeItem(userString)
+				setUser(null)
 				callback()
 			})
 			.catch(error => {
@@ -89,9 +108,19 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 		const provider = new GoogleAuthProvider()
 		signInWithPopup(auth, provider)
 			.then(result => {
-				setUser(result.user)
-				localStorage.setItem(userString, JSON.stringify(result.user))
-				callback()
+				const user = result.user
+				user
+					.getIdToken()
+					.then(accessToken => {
+						setAccessToken(accessToken)
+						setUser(user)
+						localStorage.setItem('accessToken', accessToken)
+						localStorage.setItem(userString, JSON.stringify(user))
+						callback()
+					})
+					.catch(error => {
+						console.error(error)
+					})
 			})
 			.catch(error => {
 				console.error(error)
