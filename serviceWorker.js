@@ -48,21 +48,20 @@ self.addEventListener('activate', async () => {
 
 //fetch event
 self.addEventListener('fetch', event => {
-	event.respondWith(cacheFirst(event.request))
+	if (
+		event.request.url.includes(
+			'notes-eb92a-default-rtdb.europe-west1.firebasedatabase.app/notes'
+		)
+	) {
+		event.respondWith(networkFirst(event.request))
+	} else {
+		event.respondWith(cacheFirst(event.request))
+	}
 })
 
 async function cacheFirst(request) {
-	const cached = await caches.match(request)
-	try {
-		return (
-			cached ??
-			(await fetch(request).then(() => {
-				return networkFirst(request)
-			}))
-		)
-	} catch (error) {
-		return networkFirst(request)
-	}
+	const cachedResponse = await caches.match(request)
+	return cachedResponse || fetch(request)
 }
 
 async function networkFirst(request) {
@@ -71,8 +70,8 @@ async function networkFirst(request) {
 		const response = await fetch(request)
 		await cache.put(request, response.clone())
 		return response
-	} catch (e) {
-		const cached = await cache.match(request)
-		return cached ?? (await caches.match('./src/pages/NotFound'))
+	} catch (error) {
+		const cachedResponse = await cache.match(request)
+		return cachedResponse || caches.match('./src/pages/NotFound/NotFound.tsx')
 	}
 }
