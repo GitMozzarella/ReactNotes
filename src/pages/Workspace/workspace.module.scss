@@ -28,3 +28,33 @@
 		font-weight: 800;
 	}
 }
+
+@media (max-width: 375px) {
+	.workspace {
+		width: 75vw;
+		height: 100%;
+		.chooseNote {
+			font-size: 20px;
+			color: #6b6b6b;
+			font-weight: 800;
+			width: 150px;
+		}
+	}
+
+	.darkMode {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background-color: #242424;
+		color: #b6b6b6;
+		width: 75vw;
+		height: 100%;
+
+		.chooseNote {
+			font-size: 20px;
+			color: #858585;
+			font-weight: 800;
+			width: 150px;
+		}
+	}
+}

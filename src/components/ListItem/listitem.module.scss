@@ -82,6 +82,49 @@
 }
 
 .scrollArea {
-	height: 80vh;
+	height: 80%;
 	position: relative;
+}
+
+@media (max-width: 375px) {
+	.list {
+		.note {
+			height: 60px;
+			width: 100%;
+			padding: 4px;
+
+			.buttons {
+				height: 15px;
+				gap: 10px;
+				font-size: 10px;
+			}
+			.deleteButton,
+			.editButton {
+				font-size: 12px;
+				margin-top: 2px;
+			}
+		}
+
+		.headerNote {
+			font-size: 9px;
+			font-weight: 800;
+			width: 100%;
+		}
+
+		.noteInfo {
+			max-width: 90px;
+			font-size: 7px;
+			gap: 5px;
+			padding-top: 5px;
+			cursor: default;
+		}
+		.scrollArea {
+			height: 80%;
+			position: relative;
+		}
+
+		.noNotes {
+			font-size: 12px;
+		}
+	}
 }

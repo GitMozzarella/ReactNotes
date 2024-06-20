@@ -47,3 +47,28 @@
 
 	margin: 0 50px;
 }
+
+@media (max-width: 375px) {
+	.toolbar {
+		height: 4vh;
+		border-bottom: 2px solid rgb(196, 196, 196);
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		gap: 25px;
+		padding-left: 5px;
+
+		.toggle {
+			font-size: 18px;
+			display: flex;
+			justify-content: center;
+		}
+	}
+
+	.icons {
+		display: flex;
+		justify-content: center;
+		gap: 15px;
+		margin: 0 25px;
+	}
+}

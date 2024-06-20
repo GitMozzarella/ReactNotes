@@ -98,12 +98,13 @@ export const Note = () => {
 						offsetScrollbars
 						className={styles.scrollArea}
 					>
-						<SimpleMdeReact
-							value={textEdited ? note.textNote : ''}
-							onChange={handleTextChange}
-							placeholder={additionalText}
-							className={styles.textNote}
-						/>
+						<div className={styles.textNote}>
+							<SimpleMdeReact
+								value={textEdited ? note.textNote : ''}
+								onChange={handleTextChange}
+								placeholder={additionalText}
+							/>
+						</div>
 					</ScrollArea>
 				</>
 			)}

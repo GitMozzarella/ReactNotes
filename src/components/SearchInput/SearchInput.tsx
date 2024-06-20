@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
-import { Input, CloseButton } from '@mantine/core'
+
 import { IoSearch } from 'react-icons/io5'
 import styles from './search.module.scss'
+import { MdClear } from 'react-icons/md'
 
 export const SearchInput = () => {
 	const [value, setValue] = useState<string>('')
@@ -16,21 +17,16 @@ export const SearchInput = () => {
 	}
 
 	return (
-		<Input
-			type='text'
-			className={styles.searchInput}
-			leftSection={<IoSearch className={styles.icon} />}
-			value={value}
-			placeholder='Поиск...'
-			onChange={handleChange}
-			rightSectionPointerEvents='all'
-			rightSection={
-				<CloseButton
-					aria-label='Clear input'
-					onClick={handleClear}
-					style={{ display: value ? undefined : 'none' }}
-				/>
-			}
-		/>
+		<div className={styles.wrapper}>
+			<input
+				type='text'
+				className={styles.searchInput}
+				value={value}
+				placeholder='Поиск...'
+				onChange={handleChange}
+			/>
+			<IoSearch className={styles.icon} />
+			{value && <MdClear className={styles.clear} onClick={handleClear} />}
+		</div>
 	)
 }

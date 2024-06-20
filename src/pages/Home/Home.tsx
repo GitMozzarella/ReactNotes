@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import styles from './home.module.scss'
 import { NotesContext } from '../../context/NotesProvider/NotesProvider'
-import { Text } from '@mantine/core'
+
 import { homeText } from '../../constants/messages'
 
 export const Home: React.FC = () => {
@@ -10,9 +10,7 @@ export const Home: React.FC = () => {
 	return (
 		<div className={`${styles.container} ${darkMode ? styles.darkTheme : ''}`}>
 			<h1 className={styles.title}>{homeText.title}</h1>
-			<Text className={styles.text} size='lg'>
-				{homeText.description}
-			</Text>
+			<p className={styles.text}>{homeText.description}</p>
 			<ul className={styles.list}>
 				{homeText.listItems.map((item, index) => (
 					<li key={index} className={styles.listItem}>
@@ -21,9 +19,6 @@ export const Home: React.FC = () => {
 					</li>
 				))}
 			</ul>
-			<Text className={styles.text} size='lg' ta='center'>
-				{homeText.finalMessage}
-			</Text>
 		</div>
 	)
 }

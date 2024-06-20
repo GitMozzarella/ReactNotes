@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import styles from './listitem.module.scss'
-import { Button, ScrollArea } from '@mantine/core'
+import { ScrollArea } from '@mantine/core'
 import { NotesContext } from '../../context/NotesProvider/NotesProvider'
 import { MdDelete, MdModeEdit } from 'react-icons/md'
 import { getDate } from '../../utils/getDate'
@@ -46,20 +46,18 @@ export const ListItem = () => {
 									</p>
 								</div>
 								<div className={styles.buttons}>
-									<Button
+									<button
 										className={styles.editButton}
 										onClick={() => handleEditClick(note.id)}
-										variant='transparent'
 									>
 										<MdModeEdit />
-									</Button>
-									<Button
+									</button>
+									<button
 										className={styles.deleteButton}
 										onClick={() => confirmDeleteNote(note.id)}
-										variant='transparent'
 									>
 										<MdDelete />
-									</Button>
+									</button>
 								</div>
 							</li>
 						))
