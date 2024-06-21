@@ -21,7 +21,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 		return savedUser ? JSON.parse(savedUser) : null
 	})
 
-	const [accessToken, setAccessToken] = useState<string | null>(() => {
+	const [token, setToken] = useState<string | null>(() => {
 		const savedAccessToken = localStorage.getItem('accessToken')
 		return savedAccessToken ? savedAccessToken : null
 	})
@@ -43,7 +43,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 				user
 					.getIdToken()
 					.then(accessToken => {
-						setAccessToken(accessToken)
+						setToken(accessToken)
+						console.log(token)
 						setUser(user)
 						localStorage.setItem('accessToken', accessToken)
 						localStorage.setItem(userString, JSON.stringify(user))
@@ -70,7 +71,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 				user
 					.getIdToken()
 					.then(accessToken => {
-						setAccessToken(accessToken)
+						setToken(accessToken)
 						updateProfile(user, { displayName: name })
 							.then(() => {
 								setUser(user)
@@ -97,6 +98,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 				localStorage.removeItem('accessToken')
 				localStorage.removeItem(userString)
 				setUser(null)
+				setToken(null)
 				callback()
 			})
 			.catch(error => {
@@ -112,7 +114,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 				user
 					.getIdToken()
 					.then(accessToken => {
-						setAccessToken(accessToken)
+						setToken(accessToken)
 						setUser(user)
 						localStorage.setItem('accessToken', accessToken)
 						localStorage.setItem(userString, JSON.stringify(user))
