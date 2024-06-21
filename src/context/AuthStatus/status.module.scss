@@ -67,3 +67,71 @@
 		}
 	}
 }
+
+@media (max-width: 414px), (max-width: 430px) {
+	.message {
+		width: 50vw;
+		gap: 25px;
+
+		.username {
+			font-size: 14px;
+			font-weight: 600;
+			width: 60%;
+			align-items: center;
+			text-align: center;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+
+		.logoutButton {
+			font-size: 18px;
+			background: none;
+			border: none;
+			cursor: pointer;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+		.logoutButton:hover {
+			color: rgb(187, 187, 187);
+		}
+		.logoutButton:active {
+			color: rgb(255, 254, 254);
+		}
+	}
+}
+
+@media (max-width: 1024px) {
+	.message {
+		width: 50vw;
+		gap: 25px;
+
+		.username {
+			font-size: 14px;
+			font-weight: 600;
+			width: 60%;
+			align-items: center;
+			text-align: center;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+
+		.logoutButton {
+			font-size: 18px;
+			background: none;
+			border: none;
+			cursor: pointer;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+		.logoutButton:hover {
+			color: rgb(187, 187, 187);
+		}
+		.logoutButton:active {
+			color: rgb(255, 254, 254);
+		}
+	}
+}

@@ -90,7 +90,7 @@ export const Note = () => {
 						placeholder={newNote}
 						onChange={handleHeaderChange}
 						className={styles.headerNote}
-						maxLength={25}
+						maxLength={20}
 					/>
 					<ScrollArea
 						type='scroll'
