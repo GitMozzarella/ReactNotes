@@ -1,0 +1,217 @@
+.list {
+	display: flex;
+	flex-direction: column;
+
+	.note {
+		display: flex;
+		flex-direction: column;
+		height: 130px;
+		padding: 10px;
+		position: relative;
+		border-bottom: 1px solid gray;
+		transition: background-color 0.25s ease-in-out;
+
+		.buttons {
+			display: flex;
+			justify-content: center;
+			gap: 45px;
+		}
+		.deleteButton,
+		.editButton {
+			font-size: 20px;
+			margin-top: 8px;
+			transition: color 0.25s ease-in-out;
+			color: #4d4d4d;
+		}
+
+		.deleteButton:hover,
+		.editButton:hover {
+			color: rgb(187, 187, 187);
+		}
+
+		.deleteButton:active,
+		.editButton:active {
+			color: rgb(255, 254, 254);
+		}
+	}
+
+	.note:hover {
+		background-color: #747474;
+
+		.textNote {
+			color: #2c2c2c;
+		}
+	}
+
+	.headerNote {
+		font-size: 20px;
+		font-weight: 1000;
+		cursor: default;
+		width: 260px;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	.noteInfo {
+		max-width: 260px;
+		display: flex;
+		justify-content: flex-start;
+		gap: 50px;
+		padding-top: 15px;
+		cursor: default;
+
+		.timeNote {
+			font-weight: 700;
+		}
+
+		.textNote {
+			color: rgb(102, 102, 102);
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+			max-width: 100%;
+		}
+	}
+}
+
+.noNotes {
+	text-align: center;
+	font-size: 24px;
+	color: #696969;
+}
+
+.scrollArea {
+	height: 80%;
+	position: relative;
+}
+
+@media (max-width: 375px) {
+	.list {
+		.note {
+			height: 60px;
+			width: 100%;
+			padding: 4px;
+			min-width: 25vw;
+
+			.buttons {
+				height: 15px;
+				gap: 10px;
+				font-size: 10px;
+			}
+			.deleteButton,
+			.editButton {
+				font-size: 12px;
+				margin-top: 2px;
+			}
+		}
+
+		.headerNote {
+			font-size: 9px;
+			font-weight: 800;
+			min-width: 25vw;
+		}
+
+		.noteInfo {
+			max-width: 90%;
+			font-size: 7px;
+			gap: 5px;
+			padding-top: 5px;
+			cursor: default;
+		}
+		.scrollArea {
+			height: 80%;
+			position: relative;
+		}
+
+		.noNotes {
+			font-size: 12px;
+		}
+	}
+}
+
+@media (max-width: 414px), (max-width: 430px) {
+	.list {
+		.note {
+			height: 60px;
+			width: 100%;
+			padding: 4px;
+
+			.buttons {
+				height: 15px;
+				gap: 10px;
+				font-size: 10px;
+			}
+			.deleteButton,
+			.editButton {
+				font-size: 12px;
+				margin-top: 2px;
+			}
+		}
+
+		.headerNote {
+			font-size: 9px;
+			font-weight: 800;
+			width: 100%;
+		}
+
+		.noteInfo {
+			max-width: 90px;
+			font-size: 7px;
+			gap: 5px;
+			padding-top: 5px;
+			cursor: default;
+		}
+		.scrollArea {
+			height: 80%;
+			position: relative;
+		}
+
+		.noNotes {
+			font-size: 12px;
+		}
+	}
+}
+
+@media (max-width: 1024px) {
+	.list {
+		.note {
+			height: 60px;
+			width: 100%;
+			padding: 4px;
+
+			.buttons {
+				height: 15px;
+				gap: 10px;
+				font-size: 10px;
+			}
+			.deleteButton,
+			.editButton {
+				font-size: 12px;
+				margin-top: 2px;
+			}
+		}
+
+		.headerNote {
+			font-size: 9px;
+			font-weight: 800;
+			width: 100%;
+		}
+
+		.noteInfo {
+			max-width: 90px;
+			font-size: 7px;
+			gap: 5px;
+			padding-top: 5px;
+			cursor: default;
+		}
+		.scrollArea {
+			height: 80%;
+			position: relative;
+		}
+
+		.noNotes {
+			font-size: 12px;
+		}
+	}
+}

@@ -1,0 +1,94 @@
+{
+	"name": "React Notes",
+	"short_name": "Notes",
+	"start_url": "./index.html",
+	"id": "/index.html",
+	"display": "standalone",
+	"description": "notes",
+	"background_color": "#fff",
+	"theme_color": "#56c7fc",
+	"orientation": "portrait-primary",
+	"icons": [
+		{
+			"src": "src/assets/icons/16x16.png",
+			"sizes": "16x16",
+			"type": "image/png"
+		},
+		{
+			"src": "src/assets/icons/24x24.png",
+			"sizes": "24x24",
+			"type": "image/png"
+		},
+		{
+			"src": "src/assets/icons/32x32.png",
+			"sizes": "32x32",
+			"type": "image/png"
+		},
+		{
+			"src": "src/assets/icons/48x48.png",
+			"sizes": "48x48",
+			"type": "image/png"
+		},
+		{
+			"src": "src/assets/icons/64x64.png",
+			"sizes": "64x64",
+			"type": "image/png"
+		},
+		{
+			"src": "src/assets/icons/72x72.png",
+			"sizes": "72x72",
+			"type": "image/png"
+		},
+		{
+			"src": "src/assets/icons/96x96.png",
+			"sizes": "96x96",
+			"type": "image/png"
+		},
+		{
+			"src": "src/assets/icons/310x310.png",
+			"sizes": "310x310",
+			"type": "image/png"
+		},
+		{
+			"src": "src/assets/icons/125x125.png",
+			"sizes": "388x388",
+			"type": "image/png"
+		},
+		{
+			"src": "src/assets/icons/200x200.png",
+			"sizes": "620x620",
+			"type": "image/png"
+		},
+		{
+			"src": "src/assets/icons/256x256.png",
+			"sizes": "256x256",
+			"type": "image/png"
+		},
+		{
+			"src": "src/assets/icons/400x400.png",
+			"sizes": "1240x1240",
+			"type": "image/png"
+		},
+		{
+			"src": "/src/assets/icons/notes.png",
+			"sizes": "512x512",
+			"type": "image/png",
+			"purpose": "maskable"
+		}
+	],
+	"screenshots": [
+		{
+			"src": "/src/assets/screenshots/desktop-screen.jpg",
+			"sizes": "1916x907",
+			"type": "image/jpeg",
+			"platform": "desktop",
+			"form_factor": "wide"
+		},
+		{
+			"src": "/src/assets/screenshots/mobile-screen.jpg",
+			"sizes": "371x663",
+			"type": "image/jpeg",
+			"platform": "mobile"
+		}
+	]
+}

@@ -1,0 +1,112 @@
+.addButton {
+	font-size: 16px;
+	font-weight: 800;
+	margin: 10px auto;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: #666666;
+	height: 40px;
+	width: 90%;
+	border-radius: 4px;
+
+	&:hover {
+		background-color: #b8b8b8;
+	}
+
+	&.darkMode {
+		background-color: #4d4d4d;
+
+		&:hover {
+			background-color: #c4c4c4;
+		}
+
+		&:active {
+			background-color: #b1b0b0;
+		}
+	}
+
+	.icon {
+		font-size: 24px;
+		margin-left: 15px;
+	}
+}
+
+.wrapper {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+}
+
+@media (max-width: 375px) {
+	.addButton {
+		font-size: 7px;
+		font-weight: 600;
+		margin: 10px auto;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 25px;
+
+		.icon {
+			font-size: 10px;
+			margin-left: 3px;
+		}
+	}
+
+	.wrapper {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 100%;
+	}
+}
+
+@media (max-width: 414px), (max-width: 430px) {
+	.addButton {
+		font-size: 8px;
+		font-weight: 600;
+		margin: 10px auto;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 25px;
+
+		.icon {
+			font-size: 10px;
+			margin-left: 3px;
+		}
+	}
+
+	.wrapper {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 100%;
+	}
+}
+
+@media (max-width: 1024px) {
+	.addButton {
+		font-size: 8px;
+		font-weight: 600;
+		margin: 10px auto;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 25px;
+
+		.icon {
+			font-size: 10px;
+			margin-left: 3px;
+		}
+	}
+
+	.wrapper {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 100%;
+	}
+}

@@ -1,0 +1,46 @@
+.sidebar {
+	background-color: rgb(148, 148, 148);
+	border-right: 2px solid rgb(196, 196, 196);
+	width: 15vw;
+	height: 100%;
+}
+
+.darkMode {
+	background-color: #252525;
+	border-right: 2px solid rgb(60, 60, 60);
+	color: #e2e2e2;
+	width: 15vw;
+}
+
+@media (max-width: 375px) {
+	.sidebar {
+		width: 25vw;
+		height: 90%;
+	}
+
+	.darkMode {
+		width: 25vw;
+	}
+}
+
+@media (max-width: 414px), (max-width: 430px) {
+	.sidebar {
+		width: 30vw;
+		height: 100%;
+	}
+
+	.darkMode {
+		width: 30vw;
+	}
+}
+
+@media (max-width: 1024px) {
+	.sidebar {
+		width: 30vw;
+		height: 100%;
+	}
+
+	.darkMode {
+		width: 30vw;
+	}
+}
