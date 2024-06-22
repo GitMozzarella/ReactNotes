@@ -24,6 +24,7 @@ import { INote, INotesContext } from '../../types/types'
 import { Path } from '../../router/Path'
 import { messages } from './../../constants/messages'
 import { ErrorMessages } from '../../constants/errorMessages'
+import indexedDB from './../../../indexedDB'
 
 export const NotesContext = createContext<INotesContext>({
 	darkMode: false,
@@ -42,10 +43,12 @@ export const NotesContext = createContext<INotesContext>({
 
 export const NotesProvider = ({ children }: { children: React.ReactNode }) => {
 	const [darkMode, toggleDarkMode] = useToggle(false)
-	const [notes, setNotes] = useState<INote[]>([])
 	const [headerEdited, setHeaderEdited] = useState(false)
 	const [textEdited, setTextEdited] = useState(false)
 	const [loading, setLoading] = useState(true)
+	const [notes, setNotes] = useState<INote[]>([])
+	// const [localNotes, setLocalNotes] = useState<INote[]>([]);
+	// const [storeNotes, setStoreNotes] = useState<INote[]>([]);
 	const [user, setUser] = useState(auth.currentUser)
 	const navigate = useNavigate()
 
@@ -75,21 +78,37 @@ export const NotesProvider = ({ children }: { children: React.ReactNode }) => {
 		return () => unsubscribe()
 	}, [])
 
+	const addNoteToIndexedDB = async (note: INote) => {
+		try {
+			await indexedDB.notes.add(note)
+		} catch (error) {
+			console.error('Ошибка при добавлении заметки в IndexedDB:', error)
+		}
+	}
+
 	const addNote = async () => {
 		if (user) {
 			const newNote: INote = {
 				id: uuidv4(),
 				headerNote: '',
+				textNote: '',
 				time: getCurrentTime(),
 				fullDate: getCurrentFullDate(),
 				date: getDate(),
-				textNote: ''
-			}
-			const docRef = await addDoc(collection(db, 'notes'), {
-				...newNote,
 				userId: user.uid
-			})
-			setNotes([...notes, { ...newNote, id: docRef.id }])
+			}
+
+			await addNoteToIndexedDB(newNote)
+
+			try {
+				const docRef = await addDoc(collection(db, 'notes'), newNote)
+
+				await indexedDB.notes.update(newNote.id, { id: docRef.id })
+
+				setNotes([...notes, { ...newNote, id: docRef.id }])
+			} catch (error) {
+				console.error('Ошибка при добавлении заметки в Firestore:', error)
+			}
 		}
 	}
 
